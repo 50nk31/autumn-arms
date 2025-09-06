@@ -52,6 +52,17 @@
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--accent);
         }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 5px var(--accent));
+        }
         .logo {
             font-family: 'Orbitron', sans-serif;
             font-size: 28px;
@@ -788,7 +799,10 @@
 <body>
     <!-- Шапка -->
     <header>
-        <a href="#" class="logo">AUTUMN<span>ARMS</span></a>
+        <div class="logo-container">
+            <img src="https://media.discordapp.net/attachments/1386707904723292234/1413849928362627163/image.png?ex=68bd6dda&is=68bc1c5a&hm=82fedae7fed393f56139f11d14667b1f3b0ebc29bb5f1fd9f7cf4da904641a18&=&format=webp&quality=lossless" alt="AAS Logo" class="logo-img">
+            <a href="#" class="logo">AUTUMN<span>ARMS</span></a>
+        </div>
         <nav>
             <ul>
                 <li><a href="#weapons">Оружие</a></li>
@@ -1115,9 +1129,8 @@
     </footer>
     <script>
         // --- НАСТРОЙКИ SUPABASE ---
-        // ЗАМЕНИТЕ ЭТИ ЗНАЧЕНИЯ НА ВАШИ ИЗ SUPABASE DASHBOARD
-        const SUPABASE_URL = 'https://your-project.supabase.co'; // <-- Заменить на ваш URL
-        const SUPABASE_ANON_KEY = 'your-anon-key'; // <-- Заменить на ваш anon key
+        const SUPABASE_URL = 'https://ykukezjhzcmycbkswadm.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlrdWtlempoemNteWNia3N3YWRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcxNjI5NTgsImV4cCI6MjA3MjczODk1OH0.4ws9m1hpeqrVbC0HW3Sy2m9ODfKED3I6BObhY9g9dWU';
         // --- КОНЕЦ НАСТРОЕК ---
         // Инициализация Supabase
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -1263,28 +1276,27 @@
         // --- ФУНКЦИИ АУТЕНТИФИКАЦИИ ---
         // Проверка состояния аутентификации при загрузке страницы
         async function checkAuthState() {
-            // Получаем сессию
-            const { data: { session }, error } = await supabase.auth.getSession();
+            const {  { session }, error } = await supabase.auth.getSession();
             if (error) {
                 console.error("Ошибка получения сессии:", error);
                 return;
             }
             if (session) {
                 // Проверяем, сотрудник это или обычный пользователь
-                const { data: employeeData, error: empError } = await supabase
+                const {  employeeData, error: empError } = await supabase
                     .from('employees')
                     .select('*')
                     .eq('id', session.user.id)
                     .single();
 
-                if (empError) {
-                    // Если не сотрудник, считаем обычным пользователем
-                    currentUser = session.user;
-                    updateAuthUI(currentUser, null);
-                } else {
+                if (!empError && employeeData) {
                     // Это сотрудник
                     currentEmployee = employeeData;
                     updateAuthUI(null, currentEmployee);
+                } else {
+                    // Это обычный пользователь
+                    currentUser = session.user;
+                    updateAuthUI(currentUser, null);
                 }
             } else {
                 updateAuthUI(null, null);
@@ -1302,11 +1314,12 @@
                 adminLink.style.display = 'block'; // Показываем ссылку на панель
 
                 // Отображаем логин пользователя в шапке
-                userDisplay.textContent = `Аккаунт: ${user.user_metadata.login || 'User'}`;
+                const userLogin = user.user_metadata.login || 'User';
+                userDisplay.textContent = `Аккаунт: ${userLogin}`;
                 userDisplay.style.display = 'inline-block';
 
                 // Показываем приветствие для обычного пользователя
-                showWelcomeMessage(`Добро пожаловать в AAS, ${user.user_metadata.login || 'User'}!`);
+                showWelcomeMessage(`Добро пожаловать в AAS, ${userLogin}!`);
 
             } else if (employee) {
                 currentUser = null;
@@ -1382,7 +1395,7 @@
                 if (isLoginMode) {
                     // Вход
                     ({ data, error } = await supabase.auth.signInWithPassword({
-                        email: `${login}@autumnarms.local`, // Фиктивный email для Supabase Auth
+                        email: `${login}@autumnarms.local`, // Фиктивный email
                         password: password
                     }));
 
@@ -1404,7 +1417,7 @@
                         email: `${login}@autumnarms.local`, // Фиктивный email
                         password: password,
                         options: {
-                            data: {
+                             {
                                 login: login // Сохраняем логин в метаданных пользователя
                             }
                         }
@@ -1501,7 +1514,7 @@
                 if (error) throw error;
 
                 // Проверяем, является ли пользователь сотрудником с уровнем TOP_SECRET
-                const { data: empData, error: empError } = await supabase
+                const {  empData, error: empError } = await supabase
                     .from('employees')
                     .select('*')
                     .eq('id', data.user.id)
@@ -1674,17 +1687,10 @@
         // Открытие панели администратора
         adminLink.addEventListener('click', (e) => {
             e.preventDefault();
-            if (currentUser || currentEmployee) {
-                // Если уже вошел пользователь, показываем панель администратора
-                if (currentEmployee && currentEmployee.clearance_level === 'TOP_SECRET') {
-                    adminPanel.style.display = 'block';
-                    adminPanel.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                    // Если обычный пользователь, показываем форму входа для сотрудников
-                    employeeModal.style.display = 'flex';
-                }
+            if (currentEmployee && currentEmployee.clearance_level === 'TOP_SECRET') {
+                adminPanel.style.display = 'block';
+                adminPanel.scrollIntoView({ behavior: 'smooth' });
             } else {
-                // Если никто не вошел, показываем форму входа для сотрудников
                 employeeModal.style.display = 'flex';
             }
         });
