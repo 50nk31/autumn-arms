@@ -21,13 +21,11 @@
             --success: #00ff00; /* Зеленый для успеха */
             --error: #ff5555; /* Светло-красный для ошибок */
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Exo 2', sans-serif;
             background: var(--primary);
@@ -35,13 +33,11 @@
             overflow-x: hidden;
             line-height: 1.6;
         }
-
         /* Стили для скрытых элементов анимации */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
         }
-
         /* Шапка */
         header {
             position: fixed;
@@ -56,7 +52,6 @@
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--accent);
         }
-
         .logo {
             font-family: 'Orbitron', sans-serif;
             font-size: 28px;
@@ -67,18 +62,15 @@
             align-items: center;
             letter-spacing: 2px;
         }
-
         .logo span {
             color: var(--accent);
         }
-
         nav ul {
             display: flex;
             list-style: none;
             gap: 30px;
             align-items: center; /* Выравнивание по центру по вертикали */
         }
-
         nav a, .auth-link {
             color: var(--secondary);
             text-decoration: none;
@@ -93,11 +85,9 @@
             border: none;
             cursor: pointer;
         }
-
         nav a:hover, .auth-link:hover {
             color: var(--accent);
         }
-
         nav a::after {
             content: '';
             position: absolute;
@@ -108,9 +98,19 @@
             background: var(--accent);
             transition: width 0.3s ease;
         }
-
         nav a:hover::after {
             width: 100%;
+        }
+
+        /* Стиль для отображения текущего пользователя */
+        .user-display {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 14px;
+            padding: 5px 10px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 5px;
+            margin-left: 20px;
         }
 
         /* Модальное окно */
@@ -127,7 +127,6 @@
             justify-content: center;
             align-items: center;
         }
-
         .modal-content {
             background-color: var(--bg-dark);
             margin: auto;
@@ -139,7 +138,6 @@
             position: relative;
             box-shadow: 0 0 50px var(--accent);
         }
-
         .close {
             color: var(--secondary);
             float: right;
@@ -150,28 +148,23 @@
             top: 15px;
             right: 20px;
         }
-
         .close:hover {
             color: var(--accent);
         }
-
         .modal h2 {
             font-family: 'Orbitron', sans-serif;
             margin-bottom: 20px;
             color: var(--accent);
             text-align: center;
         }
-
         .form-group {
             margin-bottom: 20px;
         }
-
         .form-group label {
             display: block;
             margin-bottom: 5px;
             font-weight: 600;
         }
-
         .form-group input {
             width: 100%;
             padding: 12px;
@@ -181,12 +174,10 @@
             color: var(--secondary);
             font-size: 16px;
         }
-
         .form-group input:focus {
             outline: none;
             box-shadow: 0 0 10px var(--accent);
         }
-
         .btn {
             width: 100%;
             padding: 12px;
@@ -202,29 +193,24 @@
             letter-spacing: 2px;
             margin-top: 10px;
         }
-
         .btn:hover {
             background: var(--accent);
             color: var(--primary);
             box-shadow: 0 0 20px var(--accent);
         }
-
         .auth-switch {
             text-align: center;
             margin-top: 20px;
             color: var(--secondary);
         }
-
         .auth-switch a {
             color: var(--accent);
             text-decoration: none;
             cursor: pointer;
         }
-
         .auth-switch a:hover {
             text-decoration: underline;
         }
-
         .message {
             padding: 10px;
             margin: 10px 0;
@@ -232,21 +218,18 @@
             text-align: center;
             display: none;
         }
-
         .message.success {
             background-color: rgba(0, 255, 0, 0.1);
             border: 1px solid var(--success);
             color: var(--success);
             display: block;
         }
-
         .message.error {
             background-color: rgba(255, 0, 0, 0.1);
             border: 1px solid var(--error);
             color: var(--error);
             display: block;
         }
-
         /* Главная секция */
         .hero {
             height: 100vh;
@@ -260,7 +243,6 @@
             overflow: hidden;
             background: linear-gradient(135deg, var(--bg-darker) 0%, var(--primary) 100%);
         }
-
         .hero::before {
             content: '';
             position: absolute;
@@ -272,7 +254,6 @@
                 radial-gradient(circle at 10% 20%, rgba(255,0,0,0.05) 0%, transparent 20%),
                 radial-gradient(circle at 90% 80%, rgba(255,0,0,0.05) 0%, transparent 20%);
         }
-
         .hero h1 {
             font-family: 'Orbitron', sans-serif;
             font-size: 5rem;
@@ -285,7 +266,6 @@
             position: relative;
             text-shadow: 0 0 20px rgba(255,0,0,0.3);
         }
-
         .hero p {
             font-size: 1.5rem;
             max-width: 800px;
@@ -294,7 +274,6 @@
             font-weight: 300;
             letter-spacing: 1px;
         }
-
         .cta-button {
             padding: 15px 40px;
             background: transparent;
@@ -311,14 +290,12 @@
             letter-spacing: 2px;
             margin-top: 20px;
         }
-
         .cta-button:hover {
             background: var(--accent);
             color: var(--primary);
             box-shadow: 0 0 30px var(--accent);
             transform: translateY(-3px);
         }
-
         .cta-button::before {
             content: '';
             position: absolute;
@@ -329,11 +306,9 @@
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
             transition: 0.5s;
         }
-
         .cta-button:hover::before {
             left: 100%;
         }
-
         /* Секции */
         section {
             padding: 120px 5%;
@@ -342,7 +317,6 @@
             flex-direction: column;
             justify-content: center;
         }
-
         .section-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 3.5rem;
@@ -352,7 +326,6 @@
             text-transform: uppercase;
             letter-spacing: 3px;
         }
-
         .section-title::after {
             content: '';
             position: absolute;
@@ -364,14 +337,12 @@
             background: var(--accent);
             box-shadow: 0 0 10px var(--accent);
         }
-
         /* Секция оружия */
         .weapons-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 40px;
         }
-
         .weapon-card {
             background: var(--bg-dark);
             border-radius: 10px;
@@ -381,13 +352,11 @@
             border: 1px solid rgba(255,0,0,0.2);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
         .weapon-card:hover {
             transform: translateY(-15px);
             box-shadow: 0 25px 50px rgba(255,0,0,0.2);
             border-color: var(--accent);
         }
-
         .weapon-image {
             height: 250px;
             background: linear-gradient(45deg, var(--bg-darker), var(--primary));
@@ -398,7 +367,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .weapon-image::before {
             content: '';
             position: absolute;
@@ -409,11 +377,9 @@
             background: linear-gradient(45deg, transparent, rgba(255,0,0,0.1), transparent);
             transform: rotate(45deg);
         }
-
         .weapon-info {
             padding: 30px;
         }
-
         .weapon-info h3 {
             font-family: 'Orbitron', sans-serif;
             margin-bottom: 15px;
@@ -421,52 +387,44 @@
             font-size: 1.8rem;
             letter-spacing: 1px;
         }
-
         .weapon-info p {
             color: var(--secondary);
             margin-bottom: 20px;
             font-size: 1.1rem;
             line-height: 1.7;
         }
-
         .weapon-specs {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 15px;
             margin-bottom: 25px;
         }
-
         .spec-item {
             background: rgba(255,0,0,0.1);
             padding: 10px;
             border-radius: 5px;
             text-align: center;
         }
-
         .spec-value {
             font-family: 'Orbitron', sans-serif;
             color: var(--accent);
             font-size: 1.2rem;
             font-weight: 600;
         }
-
         .spec-label {
             font-size: 0.9rem;
             color: var(--secondary);
             opacity: 0.8;
         }
-
         /* Секция брони */
         #armor {
             background: var(--bg-darker);
         }
-
         .armor-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 40px;
         }
-
         .armor-card {
             background: var(--bg-dark);
             border-radius: 10px;
@@ -476,13 +434,11 @@
             border: 1px solid rgba(255,0,0,0.2);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
         .armor-card:hover {
             transform: translateY(-15px);
             box-shadow: 0 25px 50px rgba(255,0,0,0.2);
             border-color: var(--accent);
         }
-
         .armor-image {
             height: 250px;
             background: linear-gradient(45deg, var(--bg-darker), var(--primary));
@@ -491,11 +447,9 @@
             justify-content: center;
             font-size: 5rem;
         }
-
         .armor-info {
             padding: 30px;
         }
-
         .armor-info h3 {
             font-family: 'Orbitron', sans-serif;
             margin-bottom: 15px;
@@ -503,21 +457,18 @@
             font-size: 1.8rem;
             letter-spacing: 1px;
         }
-
         .armor-info p {
             color: var(--secondary);
             margin-bottom: 20px;
             font-size: 1.1rem;
             line-height: 1.7;
         }
-
         /* Секция технологий */
         .tech-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
-
         .tech-item {
             text-align: center;
             padding: 40px 30px;
@@ -527,43 +478,36 @@
             border: 1px solid rgba(255,0,0,0.2);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-
         .tech-item:hover {
             transform: translateY(-10px);
             border-color: var(--accent);
             box-shadow: 0 20px 40px rgba(255,0,0,0.2);
         }
-
         .tech-icon {
             font-size: 4rem;
             margin-bottom: 25px;
             color: var(--accent);
             text-shadow: 0 0 20px var(--accent);
         }
-
         .tech-item h3 {
             font-family: 'Orbitron', sans-serif;
             margin-bottom: 15px;
             color: var(--accent);
             font-size: 1.5rem;
         }
-
         .tech-item p {
             color: var(--secondary);
             font-size: 1.1rem;
         }
-
         /* Новости */
         #news {
             background: var(--bg-darker);
         }
-
         .news-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
         }
-
         .news-card {
             background: var(--bg-dark);
             border-radius: 10px;
@@ -572,13 +516,11 @@
             border: 1px solid rgba(255,0,0,0.2);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-
         .news-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 20px 40px rgba(255,0,0,0.2);
             border-color: var(--accent);
         }
-
         .news-date {
             padding: 20px;
             background: var(--accent);
@@ -588,61 +530,51 @@
             text-align: center;
             letter-spacing: 1px;
         }
-
         .news-content {
             padding: 30px;
         }
-
         .news-content h3 {
             margin-bottom: 15px;
             color: var(--accent);
             font-size: 1.4rem;
             line-height: 1.4;
         }
-
         .news-content p {
             color: var(--secondary);
             line-height: 1.7;
         }
-
         /* Клуб */
         #club {
             background: var(--bg-dark);
         }
-
         .club-content {
             max-width: 800px;
             margin: 0 auto;
             text-align: center;
         }
-
         .club-content p {
             font-size: 1.3rem;
             margin-bottom: 30px;
             line-height: 1.8;
         }
-
         .benefits {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 25px;
             margin-top: 50px;
         }
-
         .benefit-item {
             background: rgba(255,0,0,0.1);
             padding: 25px;
             border-radius: 10px;
             border: 1px solid rgba(255,0,0,0.2);
         }
-
         .benefit-item h4 {
             color: var(--accent);
             margin-bottom: 15px;
             font-family: 'Orbitron', sans-serif;
             font-size: 1.3rem;
         }
-
         /* Панель администратора */
         #admin-panel {
             display: none; /* Скрыто по умолчанию */
@@ -650,12 +582,10 @@
             padding: 50px 5%;
             min-height: 100vh;
         }
-
         .admin-content {
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .admin-header {
             display: flex;
             justify-content: space-between;
@@ -664,12 +594,10 @@
             padding-bottom: 20px;
             border-bottom: 1px solid var(--accent);
         }
-
         .admin-header h2 {
             font-family: 'Orbitron', sans-serif;
             color: var(--accent);
         }
-
         .logout-btn {
             background: transparent;
             color: var(--accent);
@@ -679,12 +607,10 @@
             font-family: 'Orbitron', sans-serif;
             transition: all 0.3s ease;
         }
-
         .logout-btn:hover {
             background: var(--accent);
             color: var(--primary);
         }
-
         .admin-section {
             background: var(--bg-dark);
             border: 1px solid rgba(255,0,0,0.2);
@@ -692,30 +618,101 @@
             padding: 25px;
             margin-bottom: 30px;
         }
-
         .admin-section h3 {
             font-family: 'Orbitron', sans-serif;
             color: var(--accent);
             margin-bottom: 20px;
         }
-
         .admin-data {
             color: var(--secondary);
             line-height: 1.8;
         }
-
         .admin-data ul {
             list-style-type: none;
             padding-left: 0;
         }
-
         .admin-data li {
             padding: 8px 0;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-
         .admin-data li:last-child {
             border-bottom: none;
+        }
+
+        /* Стили для чата сотрудников */
+        #employee-chat {
+            background: var(--bg-dark);
+            border: 1px solid rgba(255,0,0,0.2);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        #chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 15px;
+            margin-bottom: 15px;
+            background: var(--bg-darker);
+            border-radius: 5px;
+        }
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 5px;
+        }
+        .chat-message.own {
+            background: rgba(255, 0, 0, 0.2);
+            text-align: right;
+        }
+        .chat-message.other {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .chat-message .sender {
+            font-weight: bold;
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+        .chat-message .text {
+            margin-top: 5px;
+        }
+        .chat-message .timestamp {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 5px;
+        }
+        #chat-form {
+            display: flex;
+            gap: 10px;
+        }
+        #chat-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid var(--accent);
+            border-radius: 5px;
+            background: var(--bg-darker);
+            color: var(--secondary);
+            font-size: 16px;
+        }
+        #chat-input:focus {
+            outline: none;
+            box-shadow: 0 0 10px var(--accent);
+        }
+        #send-chat-btn {
+            padding: 10px 20px;
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        #send-chat-btn:hover {
+            background: var(--accent-dark);
+            box-shadow: 0 0 20px var(--accent);
         }
 
         /* Футер */
@@ -724,14 +721,12 @@
             padding: 70px 5% 30px;
             border-top: 1px solid var(--accent);
         }
-
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 50px;
             margin-bottom: 50px;
         }
-
         .footer-column h3 {
             font-family: 'Orbitron', sans-serif;
             color: var(--accent);
@@ -739,13 +734,11 @@
             font-size: 1.5rem;
             letter-spacing: 1px;
         }
-
         .footer-column p {
             color: var(--secondary);
             margin-bottom: 15px;
             line-height: 1.7;
         }
-
         .copyright {
             padding-top: 30px;
             border-top: 1px solid rgba(255,255,255,0.1);
@@ -754,45 +747,40 @@
             text-align: center;
             font-size: 0.9rem;
         }
-
         /* Адаптация */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5rem;
                 letter-spacing: 4px;
             }
-            
             .hero p {
                 font-size: 1.1rem;
             }
-            
             nav ul {
                 gap: 10px;
                 flex-wrap: wrap;
                 justify-content: center;
             }
-            
             section {
                 padding: 80px 5%;
             }
-            
             .section-title {
                 font-size: 2.5rem;
             }
-            
             .weapons-grid, .armor-grid, .news-grid {
                 grid-template-columns: 1fr;
             }
-            
             header {
                 flex-direction: column;
                 gap: 15px;
                 padding: 15px;
             }
-            
             .modal-content {
                 width: 95%;
                 padding: 20px;
+            }
+            #chat-messages {
+                height: 200px;
             }
         }
     </style>
@@ -811,74 +799,58 @@
                 <!-- Динамические ссылки аутентификации -->
                 <li><a href="#" id="auth-link" class="auth-link">Вход / Регистрация</a></li>
                 <li><a href="#" id="admin-link" class="auth-link" style="display:none;">Панель управления</a></li>
+                <!-- Элемент для отображения текущего пользователя -->
+                <li><span id="user-display" class="user-display" style="display: none;"></span></li>
             </ul>
         </nav>
     </header>
-
     <!-- Модальное окно регистрации/входа -->
     <div id="auth-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2 id="auth-modal-title">Вход в Клуб</h2>
-            
             <div id="auth-message" class="message"></div>
-            
             <form id="auth-form">
-                <div class="form-group" id="username-group" style="display:none;">
-                    <label for="username">Имя пользователя:</label>
-                    <input type="text" id="username" required>
-                </div>
-                
                 <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" required>
+                    <label for="login">Логин:</label>
+                    <input type="text" id="login" required>
                 </div>
-                
                 <div class="form-group">
                     <label for="password">Пароль:</label>
                     <input type="password" id="password" required>
                 </div>
-                
                 <button type="submit" class="btn" id="auth-submit-btn">Войти</button>
             </form>
-            
             <div class="auth-switch">
                 <span id="auth-switch-text">Нет аккаунта? <a href="#" id="switch-auth-mode">Зарегистрироваться</a></span>
             </div>
         </div>
     </div>
-
     <!-- Модальное окно входа для сотрудников -->
     <div id="employee-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Вход для сотрудников</h2>
-            
             <div id="employee-message" class="message"></div>
-            
             <form id="employee-form">
                 <div class="form-group">
-                    <label for="employee-id">ID сотрудника:</label>
-                    <input type="text" id="employee-id" required>
+                    <label for="employee-login">Логин сотрудника:</label>
+                    <input type="text" id="employee-login" required>
                 </div>
-                
                 <div class="form-group">
                     <label for="employee-password">Пароль:</label>
                     <input type="password" id="employee-password" required>
                 </div>
-                
                 <button type="submit" class="btn">Войти</button>
             </form>
         </div>
     </div>
-
     <!-- Главная секция -->
     <section class="hero">
         <h1>AUTUMN ARMS SECURITY</h1>
         <p>Оружие нового времени. Безопасность нового уровня.</p>
         <button class="cta-button">ИССЛЕДОВАТЬ ТЕХНОЛОГИИ</button>
     </section>
-
     <!-- Секция оружия -->
     <section id="weapons">
         <h2 class="section-title fade-in">БОЕВОЕ ОРУЖИЕ</h2>
@@ -937,7 +909,6 @@
             </div>
         </div>
     </section>
-
     <!-- Секция брони -->
     <section id="armor">
         <h2 class="section-title fade-in">ЗАЩИТНОЕ СНАРЯЖЕНИЕ</h2>
@@ -996,7 +967,6 @@
             </div>
         </div>
     </section>
-
     <!-- Секция технологий -->
     <section id="tech">
         <h2 class="section-title fade-in">БОЕВЫЕ ТЕХНОЛОГИИ</h2>
@@ -1018,7 +988,6 @@
             </div>
         </div>
     </section>
-
     <!-- Секция новостей -->
     <section id="news">
         <h2 class="section-title fade-in">НОВОСТИ И СОБЫТИЯ</h2>
@@ -1046,14 +1015,12 @@
             </div>
         </div>
     </section>
-
     <!-- Секция клуба -->
     <section id="club">
         <h2 class="section-title fade-in">КЛУБ AAS</h2>
         <div class="club-content fade-in">
             <p>Мы объединяем владельцев продукции AAS и всех, кто хочет стать частью элитного сообщества. Больше десяти уникальных привилегий для участников клуба.</p>
             <button class="cta-button" id="club-join-btn">СТАТЬ УЧАСТНИКОМ КЛУБА</button>
-            
             <div class="benefits">
                 <div class="benefit-item">
                     <h4>ЭКСКЛЮЗИВНОЕ ОРУЖИЕ</h4>
@@ -1074,7 +1041,6 @@
             </div>
         </div>
     </section>
-
     <!-- Панель администратора (для сотрудников высшего класса) -->
     <section id="admin-panel">
         <div class="admin-content">
@@ -1082,7 +1048,6 @@
                 <h2>ПАНЕЛЬ УПРАВЛЕНИЯ AAS</h2>
                 <button class="logout-btn" id="admin-logout-btn">Выйти</button>
             </div>
-            
             <div class="admin-section">
                 <h3>КОНФИДЕНЦИАЛЬНЫЕ ДАННЫЕ</h3>
                 <div class="admin-data" id="confidential-data">
@@ -1090,7 +1055,6 @@
                     <p>Загрузка данных...</p>
                 </div>
             </div>
-            
             <div class="admin-section">
                 <h3>СТАТИСТИКА ПРОИЗВОДСТВА</h3>
                 <div class="admin-data" id="production-stats">
@@ -1098,7 +1062,6 @@
                     <p>Загрузка статистики...</p>
                 </div>
             </div>
-            
             <div class="admin-section">
                 <h3>ПОСЛЕДНИЕ ОПЕРАЦИИ</h3>
                 <div class="admin-data" id="recent-ops">
@@ -1110,9 +1073,21 @@
                     </ul>
                 </div>
             </div>
+
+            <!-- Секция чата для сотрудников -->
+            <div id="employee-chat">
+                <h3>ЧАТ СОТРУДНИКОВ</h3>
+                <div id="chat-messages">
+                    <!-- Сообщения чата будут появляться здесь -->
+                </div>
+                <form id="chat-form">
+                    <input type="text" id="chat-input" placeholder="Введите сообщение..." required>
+                    <button type="submit" id="send-chat-btn">Отправить</button>
+                </form>
+            </div>
+
         </div>
     </section>
-
     <!-- Футер -->
     <footer>
         <div class="footer-content">
@@ -1138,20 +1113,16 @@
             <p>&copy; 2023 AUTUMN ARMS SECURITY. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</p>
         </div>
     </footer>
-
     <script>
         // --- НАСТРОЙКИ SUPABASE ---
         // ЗАМЕНИТЕ ЭТИ ЗНАЧЕНИЯ НА ВАШИ ИЗ SUPABASE DASHBOARD
-        const SUPABASE_URL = 'https://ppctyrhwdtlqlwprtxer.supabase.co'; // <-- Заменить на ваш URL
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBwY3R5cmh3ZHRscWx3cHJ0eGVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcxNTc2MzAsImV4cCI6MjA3MjczMzYzMH0.8W1ZA62hOtX9Idiv5m13ECByXNfHBplNyYHMCGHOOHQ'; // <-- Заменить на ваш anon key
+        const SUPABASE_URL = 'https://your-project.supabase.co'; // <-- Заменить на ваш URL
+        const SUPABASE_ANON_KEY = 'your-anon-key'; // <-- Заменить на ваш anon key
         // --- КОНЕЦ НАСТРОЕК ---
-
         // Инициализация Supabase
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
         // Инициализация GSAP и ScrollTrigger
         gsap.registerPlugin(ScrollTrigger);
-
         // DOM Elements
         const authModal = document.getElementById('auth-modal');
         const employeeModal = document.getElementById('employee-modal');
@@ -1162,14 +1133,22 @@
         const authModalTitle = document.getElementById('auth-modal-title');
         const authSubmitBtn = document.getElementById('auth-submit-btn');
         const authSwitchText = document.getElementById('auth-switch-text');
-        const usernameGroup = document.getElementById('username-group');
         const clubJoinBtn = document.getElementById('club-join-btn');
         const authLink = document.getElementById('auth-link');
         const adminLink = document.getElementById('admin-link');
         const adminPanel = document.getElementById('admin-panel');
         const adminLogoutBtn = document.getElementById('admin-logout-btn');
 
+        // Новые элементы для чата и отображения пользователя
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+        const userDisplay = document.getElementById('user-display');
+
         let isLoginMode = true; // Переключатель между входом и регистрацией
+        let currentUser = null; // Глобальная переменная для текущего пользователя
+        let currentEmployee = null; // Глобальная переменная для текущего сотрудника
+        let chatChannel = null; // Канал Realtime для чата
 
         // --- АНИМАЦИИ ---
         // Анимация заголовка при загрузке
@@ -1180,7 +1159,6 @@
             ease: "power4.out",
             delay: 0.2
         });
-
         gsap.from('.hero p', {
             duration: 1.8,
             y: 50,
@@ -1188,7 +1166,6 @@
             delay: 0.5,
             ease: "power4.out"
         });
-
         gsap.from('.cta-button', {
             duration: 1.8,
             y: 50,
@@ -1196,7 +1173,6 @@
             delay: 0.8,
             ease: "power4.out"
         });
-
         // Анимации при скролле
         gsap.utils.toArray('.fade-in').forEach((element, i) => {
             gsap.to(element, {
@@ -1211,7 +1187,6 @@
                 }
             });
         });
-
         // Эффект наведения на кнопки
         document.querySelectorAll('.cta-button, .btn').forEach(button => {
             button.addEventListener('mouseenter', () => {
@@ -1222,7 +1197,6 @@
                     ease: "power2.out"
                 });
             });
-
             button.addEventListener('mouseleave', () => {
                 gsap.to(button, {
                     duration: 0.3,
@@ -1232,7 +1206,6 @@
                 });
             });
         });
-
         // Эффект наведения на карточки
         const cards = document.querySelectorAll('.weapon-card, .armor-card, .tech-item, .news-card');
         cards.forEach(card => {
@@ -1244,7 +1217,6 @@
                     ease: "power2.out"
                 });
             });
-
             card.addEventListener('mouseleave', () => {
                 gsap.to(card, {
                     duration: 0.4,
@@ -1254,7 +1226,6 @@
                 });
             });
         });
-
         // Пульсация логотипа
         setInterval(() => {
             gsap.to('.logo span', {
@@ -1266,14 +1237,12 @@
                 ease: "power1.inOut"
             });
         }, 4000);
-
         // Добавляем немного интерактива
         document.querySelector('.hero').addEventListener('mousemove', (e) => {
             const x = (window.innerWidth - e.pageX) / 100;
             const y = (window.innerHeight - e.pageY) / 100;
             document.querySelector('.hero h1').style.transform = `translateX(${x}px) translateY(${y}px)`;
         });
-
         // Анимация при клике на кнопку CTA
         document.querySelectorAll('.cta-button').forEach(button => {
             button.addEventListener('click', function() {
@@ -1294,24 +1263,81 @@
         // --- ФУНКЦИИ АУТЕНТИФИКАЦИИ ---
         // Проверка состояния аутентификации при загрузке страницы
         async function checkAuthState() {
-            const { data: { user } } = await supabase.auth.getUser();
-            updateAuthUI(user);
+            // Получаем сессию
+            const { data: { session }, error } = await supabase.auth.getSession();
+            if (error) {
+                console.error("Ошибка получения сессии:", error);
+                return;
+            }
+            if (session) {
+                // Проверяем, сотрудник это или обычный пользователь
+                const { data: employeeData, error: empError } = await supabase
+                    .from('employees')
+                    .select('*')
+                    .eq('id', session.user.id)
+                    .single();
+
+                if (empError) {
+                    // Если не сотрудник, считаем обычным пользователем
+                    currentUser = session.user;
+                    updateAuthUI(currentUser, null);
+                } else {
+                    // Это сотрудник
+                    currentEmployee = employeeData;
+                    updateAuthUI(null, currentEmployee);
+                }
+            } else {
+                updateAuthUI(null, null);
+            }
         }
 
         // Обновление UI в зависимости от состояния аутентификации
-        function updateAuthUI(user) {
+        function updateAuthUI(user, employee) {
             if (user) {
+                currentUser = user;
+                currentEmployee = null;
                 authLink.textContent = 'Выйти';
                 authLink.href = '#';
                 authLink.onclick = handleLogout;
                 adminLink.style.display = 'block'; // Показываем ссылку на панель
+
+                // Отображаем логин пользователя в шапке
+                userDisplay.textContent = `Аккаунт: ${user.user_metadata.login || 'User'}`;
+                userDisplay.style.display = 'inline-block';
+
+                // Показываем приветствие для обычного пользователя
+                showWelcomeMessage(`Добро пожаловать в AAS, ${user.user_metadata.login || 'User'}!`);
+
+            } else if (employee) {
+                currentUser = null;
+                currentEmployee = employee;
+                authLink.textContent = 'Выйти';
+                authLink.href = '#';
+                authLink.onclick = handleLogout;
+                adminLink.style.display = 'block';
+
+                // Отображаем логин сотрудника в шапке
+                userDisplay.textContent = `Сотрудник: ${employee.login}`;
+                userDisplay.style.display = 'inline-block';
+
+                // Показываем приветствие для сотрудника
+                showWelcomeMessage(`ПРОТОКОЛ ВХОДА ВЫПОЛНЕН. Добро пожаловать, ${employee.name}. Уровень допуска: ${employee.clearance_level}.`);
+
             } else {
+                // Никто не вошел
                 authLink.textContent = 'Вход / Регистрация';
                 authLink.href = '#';
                 authLink.onclick = () => { authModal.style.display = 'flex'; };
-                adminLink.style.display = 'none'; // Скрываем ссылку на панель
-                adminPanel.style.display = 'none'; // Скрываем панель, если открыта
+                adminLink.style.display = 'none';
+                userDisplay.style.display = 'none';
+                currentUser = null;
+                currentEmployee = null;
             }
+        }
+
+        // Функция для отображения приветственного сообщения
+        function showWelcomeMessage(message) {
+            alert(message); // Используем alert для простоты. Можно заменить на модальное окно или баннер.
         }
 
         // Переключение режима аутентификации (вход/регистрация)
@@ -1320,12 +1346,10 @@
             if (isLoginMode) {
                 authModalTitle.textContent = 'Вход в Клуб';
                 authSubmitBtn.textContent = 'Войти';
-                usernameGroup.style.display = 'none';
                 authSwitchText.innerHTML = 'Нет аккаунта? <a href="#" id="switch-auth-mode">Зарегистрироваться</a>';
             } else {
                 authModalTitle.textContent = 'Регистрация в Клубе';
                 authSubmitBtn.textContent = 'Зарегистрироваться';
-                usernameGroup.style.display = 'block';
                 authSwitchText.innerHTML = 'Уже есть аккаунт? <a href="#" id="switch-auth-mode">Войти</a>';
             }
             // Переназначаем обработчик события для новой ссылки
@@ -1338,22 +1362,28 @@
         // Обработка отправки формы аутентификации
         authForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = document.getElementById('email').value;
+            const login = document.getElementById('login').value.trim();
             const password = document.getElementById('password').value;
-            const username = document.getElementById('username').value;
             const messageEl = document.getElementById('auth-message');
-
             messageEl.className = 'message'; // Сброс класса
             messageEl.textContent = '';
             messageEl.style.display = 'none';
 
+            if (!login || !password) {
+                messageEl.textContent = 'Логин и пароль обязательны.';
+                messageEl.className = 'message error';
+                messageEl.style.display = 'block';
+                return;
+            }
+
             try {
                 let data, error;
+
                 if (isLoginMode) {
                     // Вход
                     ({ data, error } = await supabase.auth.signInWithPassword({
-                        email,
-                        password
+                        email: `${login}@autumnarms.local`, // Фиктивный email для Supabase Auth
+                        password: password
                     }));
 
                     if (error) throw error;
@@ -1365,56 +1395,51 @@
                     // Закрываем модальное окно и обновляем UI
                     setTimeout(() => {
                         authModal.style.display = 'none';
-                        updateAuthUI(data.user);
+                        checkAuthState(); // Перепроверяем состояние
                     }, 1500);
 
                 } else {
                     // Регистрация
-                    if (!username) {
-                        throw new Error('Имя пользователя обязательно для регистрации.');
-                    }
-
                     ({ data, error } = await supabase.auth.signUp({
-                        email,
-                        password,
+                        email: `${login}@autumnarms.local`, // Фиктивный email
+                        password: password,
                         options: {
-                            data: { // Используем поле data для дополнительной информации
-                                username: username
+                            data: {
+                                login: login // Сохраняем логин в метаданных пользователя
                             }
                         }
                     }));
 
                     if (error) throw error;
 
-                    // После регистрации обновляем профиль в таблице profiles
-                    // Supabase Auth автоматически создает запись в auth.users
-                    // Мы можем использовать триггер или обновить запись вручную
-                    // Здесь мы используем upsert (вставка или обновление)
+                    // Создаем запись в таблице profiles
                     if (data.user) {
                         const { error: profileError } = await supabase
                             .from('profiles')
                             .upsert({
-                                id: data.user.id, // Используем ID пользователя из Auth
-                                username: username,
-                                // email: email, // Обычно email уже есть в auth.users
-                                joined_at: new Date(),
-                                updated_at: new Date()
-                            }, { onConflict: 'id' }); // Указываем конфликт по id
+                                id: data.user.id,
+                                login: login,
+                                joined_at: new Date().toISOString(),
+                                updated_at: new Date().toISOString()
+                            }, { onConflict: 'id' });
 
                         if (profileError) {
-                            console.error('Ошибка при создании/обновлении профиля:', profileError);
-                            // Можно показать предупреждение пользователю, но регистрация в Auth прошла
+                            console.error('Ошибка при создании профиля:', profileError);
                         }
                     }
 
-                    messageEl.textContent = 'Регистрация успешна! Проверьте ваш email для подтверждения.';
+                    messageEl.textContent = 'Регистрация успешна!';
                     messageEl.className = 'message success';
                     messageEl.style.display = 'block';
 
-                     // Закрываем модальное окно
+                    // Переключаемся на режим входа
+                    isLoginMode = true;
+                    toggleAuthMode();
+
+                    // Закрываем модальное окно через 2 секунды
                     setTimeout(() => {
                         authModal.style.display = 'none';
-                    }, 3000);
+                    }, 2000);
                 }
             } catch (error) {
                 console.error("Ошибка аутентификации:", error);
@@ -1427,11 +1452,24 @@
         // Обработка выхода
         async function handleLogout(e) {
             e.preventDefault();
-            const { error } = await supabase.auth.signOut();
-            if (error) {
-                console.error("Ошибка выхода:", error);
+
+            // Выход из Supabase Auth
+            const { error: authError } = await supabase.auth.signOut();
+
+            // Отписка от канала чата, если он существует
+            if (chatChannel) {
+                await chatChannel.unsubscribe();
+                chatChannel = null;
+            }
+
+            if (authError) {
+                console.error("Ошибка выхода:", authError);
             } else {
-                updateAuthUI(null);
+                // Сбрасываем состояние
+                currentUser = null;
+                currentEmployee = null;
+                updateAuthUI(null, null);
+                adminPanel.style.display = 'none'; // Скрываем панель администратора при выходе
             }
         }
 
@@ -1439,47 +1477,56 @@
         // Обработка отправки формы входа для сотрудников
         employeeForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const employeeId = document.getElementById('employee-id').value;
+            const employeeLogin = document.getElementById('employee-login').value.trim();
             const employeePassword = document.getElementById('employee-password').value;
             const messageEl = document.getElementById('employee-message');
-
             messageEl.className = 'message';
             messageEl.textContent = '';
             messageEl.style.display = 'none';
 
+            if (!employeeLogin || !employeePassword) {
+                messageEl.textContent = 'Логин и пароль обязательны.';
+                messageEl.className = 'message error';
+                messageEl.style.display = 'block';
+                return;
+            }
+
             try {
-                // Вызов функции authenticate_employee из Supabase
-                // ВАЖНО: Пароль передается в открытом виде. В реальном приложении
-                // это должен быть хэш или функция должна сама хэшировать и сравнивать.
-                const { data, error } = await supabase.rpc('authenticate_employee', {
-                    emp_id: employeeId,
-                    emp_password: employeePassword
+                // Пытаемся войти как обычный пользователь (Supabase Auth)
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: `${employeeLogin}@autumnarms.local`, // Фиктивный email
+                    password: employeePassword
                 });
 
                 if (error) throw error;
 
-                if (!data.success) {
-                    throw new Error(data.message || 'Ошибка аутентификации.');
-                }
+                // Проверяем, является ли пользователь сотрудником с уровнем TOP_SECRET
+                const { data: empData, error: empError } = await supabase
+                    .from('employees')
+                    .select('*')
+                    .eq('id', data.user.id)
+                    .eq('clearance_level', 'TOP_SECRET')
+                    .single();
 
-                // Проверка уровня допуска
-                const employeeData = data.employee;
-                if (employeeData.clearance_level !== 'TOP_SECRET') {
-                    throw new Error('Недостаточный уровень допуска.');
+                if (empError) {
+                    throw new Error('Недостаточный уровень допуска или неверные учетные данные.');
                 }
 
                 messageEl.textContent = 'Успешный вход!';
                 messageEl.className = 'message success';
                 messageEl.style.display = 'block';
 
+                // Сохраняем данные сотрудника
+                currentEmployee = empData;
+
                 // Закрываем модальное окно и показываем панель администратора
                 setTimeout(() => {
                     employeeModal.style.display = 'none';
                     adminPanel.style.display = 'block';
-                    // Скроллим к панели
                     adminPanel.scrollIntoView({ behavior: 'smooth' });
-                    // Загружаем данные (заглушка)
-                    loadAdminData(employeeData);
+                    loadAdminData(currentEmployee);
+                    initializeChat(currentEmployee); // Инициализируем чат
+                    updateAuthUI(null, currentEmployee); // Обновляем UI
                 }, 1500);
 
             } catch (error) {
@@ -1492,39 +1539,113 @@
 
         // Загрузка данных для панели администратора (заглушка)
         function loadAdminData(employeeData) {
-             // Здесь вы можете сделать запросы к вашим таблицам в Supabase
-             // и заполнить соответствующие div'ы данными
-             document.getElementById('confidential-data').innerHTML = `
+            document.getElementById('confidential-data').innerHTML = `
                 <ul>
                     <li><strong>Здравствуйте, ${employeeData.name}</strong></li>
                     <li><strong>Проект "Омега":</strong> Статус - Классифицировано</li>
                     <li><strong>Бюджет на Q4:</strong> 500,000,000 $</li>
                     <li><strong>Код активации:</strong> AAS-OMEGA-RED-777</li>
                 </ul>
-             `;
-             document.getElementById('production-stats').innerHTML = `
+            `;
+            document.getElementById('production-stats').innerHTML = `
                 <ul>
                     <li>AAS-12: 15,000 единиц (в этом месяце)</li>
                     <li>AAS-308: 2,500 единиц (в этом месяце)</li>
                     <li>AAS-Helmet MK-VII: 8,000 единиц (в этом месяце)</li>
                 </ul>
-             `;
-             // Данные последних операций уже есть в HTML
+            `;
+        }
+
+        // --- ФУНКЦИИ ЧАТА ---
+        // Инициализация чата
+        async function initializeChat(employeeData) {
+            // Очищаем предыдущие сообщения
+            chatMessages.innerHTML = '';
+
+            // Создаем канал Realtime
+            chatChannel = supabase.channel('employee_chat');
+
+            // Подписываемся на новые сообщения
+            chatChannel.on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'employee_chat' }, async (payload) => {
+                const newMessage = payload.new;
+                await addMessageToUI(newMessage, false); // false = не наше сообщение
+            }).subscribe();
+
+            // Загружаем историю сообщений
+            const { data: messages, error } = await supabase
+                .from('employee_chat')
+                .select('*')
+                .order('created_at', { ascending: true });
+
+            if (error) {
+                console.error('Ошибка загрузки истории чата:', error);
+                return;
+            }
+
+            for (const msg of messages) {
+                await addMessageToUI(msg, msg.sender_id === employeeData.id);
+            }
+
+            // Обработчик отправки сообщения
+            chatForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const text = chatInput.value.trim();
+                if (!text) return;
+
+                // Отправляем сообщение в базу данных
+                const { error: insertError } = await supabase
+                    .from('employee_chat')
+                    .insert({
+                        sender_id: employeeData.id,
+                        sender_name: employeeData.name,
+                        message_text: text,
+                        created_at: new Date().toISOString()
+                    });
+
+                if (insertError) {
+                    console.error('Ошибка отправки сообщения:', insertError);
+                    return;
+                }
+
+                // Очищаем поле ввода
+                chatInput.value = '';
+            });
+        }
+
+        // Функция для добавления сообщения в UI
+        async function addMessageToUI(message, isOwnMessage) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message');
+            if (isOwnMessage) {
+                messageDiv.classList.add('own');
+            } else {
+                messageDiv.classList.add('other');
+            }
+
+            const timestamp = new Date(message.created_at).toLocaleString('ru-RU', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+
+            messageDiv.innerHTML = `
+                <div class="sender">${message.sender_name}</div>
+                <div class="text">${message.message_text}</div>
+                <div class="timestamp">${timestamp}</div>
+            `;
+
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Прокручиваем вниз
         }
 
         // --- ОБРАБОТЧИКИ СОБЫТИЙ ---
         // Открытие модального окна аутентификации
         clubJoinBtn.addEventListener('click', () => {
-             // Проверяем, вошел ли пользователь
-            supabase.auth.getUser().then(({ data: { user } }) => {
-                if (user) {
-                    // Если вошел, показываем сообщение или перенаправляем
-                    alert('Вы уже являетесь участником клуба!');
-                } else {
-                    // Если нет, открываем модальное окно
-                    authModal.style.display = 'flex';
-                }
-            });
+            if (currentUser || currentEmployee) {
+                alert('Вы уже являетесь участником клуба!');
+            } else {
+                authModal.style.display = 'flex';
+            }
         });
 
         // Переключение режима аутентификации
@@ -1553,22 +1674,30 @@
         // Открытие панели администратора
         adminLink.addEventListener('click', (e) => {
             e.preventDefault();
-            employeeModal.style.display = 'flex'; // Открываем модальное окно входа для сотрудников
+            if (currentUser || currentEmployee) {
+                // Если уже вошел пользователь, показываем панель администратора
+                if (currentEmployee && currentEmployee.clearance_level === 'TOP_SECRET') {
+                    adminPanel.style.display = 'block';
+                    adminPanel.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    // Если обычный пользователь, показываем форму входа для сотрудников
+                    employeeModal.style.display = 'flex';
+                }
+            } else {
+                // Если никто не вошел, показываем форму входа для сотрудников
+                employeeModal.style.display = 'flex';
+            }
         });
 
         // Выход из панели администратора
         adminLogoutBtn.addEventListener('click', () => {
-            adminPanel.style.display = 'none';
-            // Скроллим наверх или на другую секцию
-            document.querySelector('.hero').scrollIntoView({ behavior: 'smooth' });
+            handleLogout(new Event('click')); // Вызываем общую функцию выхода
         });
 
         // --- ИНИЦИАЛИЗАЦИЯ ---
-        // Проверяем состояние аутентификации при загрузке страницы
         document.addEventListener('DOMContentLoaded', () => {
             checkAuthState();
         });
-
     </script>
 </body>
 </html>
