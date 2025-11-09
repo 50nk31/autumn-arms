@@ -3,255 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autumn Arms Security</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;900&display=swap" rel="stylesheet">
-    <!-- Подключаем Supabase JS SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <title>Autumn Arms | Частная Военная Компания</title>
     <style>
-        :root {
-            --primary: #000000; /* Черный */
-            --secondary: #ffffff; /* Белый */
-            --accent: #ff0000; /* Красный */
-            --accent-dark: #cc0000; /* Темно-красный */
-            --accent-light: #ff3333; /* Светло-красный */
-            --bg-dark: #0a0a0a;
-            --bg-darker: #050505;
-            --success: #00ff00; /* Зеленый для успеха */
-            --error: #ff5555; /* Светло-красный для ошибок */
-        }
+        /* Обнуление */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: 'Exo 2', sans-serif;
-            background: var(--primary);
-            color: var(--secondary);
-            overflow-x: hidden;
+            font-family: 'Orbitron', 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #000 100%);
+            color: #f0f0f0;
             line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
         }
-        /* Стили для скрытых элементов анимации */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        /* Шапка */
-        header {
+
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
-            z-index: 1000;
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--accent);
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(139, 0, 0, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(139, 0, 0, 0.05) 0%, transparent 20%);
+            pointer-events: none;
+            z-index: -1;
         }
+
+        /* Скан-линия */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(0, 0, 0, 0.1) 10%,
+                transparent 20%,
+                transparent 80%,
+                rgba(0, 0, 0, 0.1) 90%,
+                transparent 100%
+            );
+            background-size: 100% 4px;
+            animation: scanline 8s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes scanline {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+
+        /* Контейнер */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Шапка */
+        header {
+            background: rgba(10, 10, 10, 0.9);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(139, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+        }
+
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 12px;
+            margin-right: 20px;
         }
+
         .logo-img {
-            width: 42px;
-            height: 42px;
-            object-fit: contain;
-            filter: drop-shadow(0 0 5px var(--accent));
+            height: 50px;
+            width: auto;
+            margin-right: 10px;
+            filter: drop-shadow(0 0 8px rgba(255, 0, 51, 0.6));
         }
+
         .logo {
-            font-family: 'Orbitron', sans-serif;
             font-size: 28px;
-            font-weight: 900;
-            color: var(--secondary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
+            font-weight: 700;
+            color: #ff0033;
             letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 0, 51, 0.7),
+                         0 0 20px rgba(255, 0, 51, 0.5),
+                         0 0 30px rgba(255, 0, 51, 0.3);
+            animation: neonGlow 2s infinite alternate;
         }
-        .logo span {
-            color: var(--accent);
+
+        @keyframes neonGlow {
+            from { text-shadow: 0 0 10px rgba(255, 0, 51, 0.7); }
+            to { text-shadow: 0 0 20px rgba(255, 0, 51, 0.9), 0 0 30px rgba(255, 0, 51, 0.6); }
         }
+
         nav ul {
-            display: flex;
             list-style: none;
-            gap: 30px;
-            align-items: center; /* Выравнивание по центру по вертикали */
+            display: flex;
+            margin-left: auto;
         }
-        nav a, .auth-link {
-            color: var(--secondary);
-            text-decoration: none;
-            font-weight: 400;
-            font-size: 16px;
-            transition: all 0.3s ease;
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: #f0f0f0;
+            font-size: 18px;
             position: relative;
-            padding: 5px 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: none;
-            border: none;
-            cursor: pointer;
+            transition: color 0.3s ease;
+            text-shadow: 0 0 5px rgba(255, 0, 51, 0.3);
         }
-        nav a:hover, .auth-link:hover {
-            color: var(--accent);
+
+        nav ul li a:hover {
+            color: #ff3366;
         }
-        nav a::after {
+
+        nav ul li a::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -5px;
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--accent);
+            background: linear-gradient(90deg, #8B0000, #ff0033);
             transition: width 0.3s ease;
         }
-        nav a:hover::after {
+
+        nav ul li a:hover::after {
             width: 100%;
         }
-        /* Стиль для отображения текущего пользователя */
-        .user-display {
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 14px;
-            padding: 5px 10px;
-            background: rgba(255, 0, 0, 0.1);
-            border-radius: 5px;
-            margin-left: 20px;
-        }
-        /* Модальное окно */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.8);
-            backdrop-filter: blur(5px);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: var(--bg-dark);
-            margin: auto;
-            padding: 30px;
-            border: 1px solid var(--accent);
-            width: 90%;
-            max-width: 500px;
-            border-radius: 10px;
-            position: relative;
-            box-shadow: 0 0 50px var(--accent);
-        }
-        .close {
-            color: var(--secondary);
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            position: absolute;
-            top: 15px;
-            right: 20px;
-        }
-        .close:hover {
-            color: var(--accent);
-        }
-        .modal h2 {
-            font-family: 'Orbitron', sans-serif;
-            margin-bottom: 20px;
-            color: var(--accent);
-            text-align: center;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--accent);
-            border-radius: 5px;
-            background: var(--bg-darker);
-            color: var(--secondary);
-            font-size: 16px;
-        }
-        .form-group input:focus {
-            outline: none;
-            box-shadow: 0 0 10px var(--accent);
-        }
-        .btn {
-            width: 100%;
-            padding: 12px;
-            background: transparent;
-            color: var(--accent);
-            border: 2px solid var(--accent);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 2px;
-            margin-top: 10px;
-        }
-        .btn:hover {
-            background: var(--accent);
-            color: var(--primary);
-            box-shadow: 0 0 20px var(--accent);
-        }
-        .auth-switch {
-            text-align: center;
-            margin-top: 20px;
-            color: var(--secondary);
-        }
-        .auth-switch a {
-            color: var(--accent);
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .auth-switch a:hover {
-            text-decoration: underline;
-        }
-        .message {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            text-align: center;
-            display: none;
-        }
-        .message.success {
-            background-color: rgba(0, 255, 0, 0.1);
-            border: 1px solid var(--success);
-            color: var(--success);
-            display: block;
-        }
-        .message.error {
-            background-color: rgba(255, 0, 0, 0.1);
-            border: 1px solid var(--error);
-            color: var(--error);
-            display: block;
-        }
-        /* Главная секция */
+
+        /* Главный блок */
         .hero {
-            height: 100vh;
+            height: 90vh;
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)),
+                url('https://via.placeholder.com/1200x800/000000/000000') no-repeat center center/cover;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 5%;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, var(--bg-darker) 0%, var(--primary) 100%);
         }
+
         .hero::before {
             content: '';
             position: absolute;
@@ -259,1400 +176,362 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background:
-                radial-gradient(circle at 10% 20%, rgba(255,0,0,0.05) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(255,0,0,0.05) 0%, transparent 20%);
+            background: 
+                linear-gradient(45deg, transparent 49%, rgba(255, 0, 51, 0.1) 50%, transparent 51%),
+                linear-gradient(-45deg, transparent 49%, rgba(255, 0, 51, 0.1) 50%, transparent 51%);
+            background-size: 40px 40px;
+            opacity: 0.1;
+            animation: gridMove 20s linear infinite;
         }
+
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 40px; }
+        }
+
         .hero h1 {
-            font-family: 'Orbitron', sans-serif;
             font-size: 5rem;
+            color: #ff0033;
             margin-bottom: 20px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            letter-spacing: 8px;
-            background: linear-gradient(to right, var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-            text-shadow: 0 0 20px rgba(255,0,0,0.3);
+            text-shadow: 0 0 15px rgba(255, 0, 51, 0.8);
+            animation: neonGlow 2s infinite alternate;
         }
+
         .hero p {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             max-width: 800px;
             margin-bottom: 40px;
-            color: var(--secondary);
-            font-weight: 300;
-            letter-spacing: 1px;
+            color: #ddd;
+            text-shadow: 0 0 10px rgba(255, 0, 51, 0.3);
+            animation: fadeInUp 1.5s ease-out;
         }
-        .cta-button {
-            padding: 15px 40px;
-            background: transparent;
-            color: var(--accent);
-            border: 2px solid var(--accent);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 16px;
-            font-weight: 600;
+
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(45deg, #8B0000, #ff0033);
+            color: white;
             text-transform: uppercase;
+            font-weight: bold;
+            border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            letter-spacing: 1.5px;
+            box-shadow: 0 0 15px rgba(255, 0, 51, 0.5);
             position: relative;
             overflow: hidden;
-            letter-spacing: 2px;
-            margin-top: 20px;
+            border: 1px solid rgba(255, 0, 51, 0.3);
         }
-        .cta-button:hover {
-            background: var(--accent);
-            color: var(--primary);
-            box-shadow: 0 0 30px var(--accent);
-            transform: translateY(-3px);
-        }
-        .cta-button::before {
+
+        .btn::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: 0.5s;
         }
-        .cta-button:hover::before {
+
+        .btn:hover::before {
             left: 100%;
         }
-        /* Секции */
+
+        .btn:hover {
+            box-shadow: 0 0 25px rgba(255, 0, 51, 0.8);
+            transform: translateY(-5px) scale(1.05);
+            border-color: #ff3366;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Разделы */
         section {
-            padding: 120px 5%;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            padding: 100px 0;
         }
+
         .section-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            margin-bottom: 70px;
             text-align: center;
-            position: relative;
+            font-size: 2.8rem;
+            color: #ff0033;
+            margin-bottom: 60px;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 0, 51, 0.6);
+            animation: neonGlow 2.5s infinite alternate;
         }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150px;
-            height: 3px;
-            background: var(--accent);
-            box-shadow: 0 0 10px var(--accent);
+
+        /* О компании */
+        .about {
+            background: linear-gradient(135deg, #0a0a0a 0%, #111 100%);
         }
-        /* Секция оружия */
-        .weapons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-        }
-        .weapon-card {
-            background: var(--bg-dark);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            border: 1px solid rgba(255,0,0,0.2);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .weapon-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 25px 50px rgba(255,0,0,0.2);
-            border-color: var(--accent);
-        }
-        .weapon-image {
-            height: 250px;
-            background: linear-gradient(45deg, var(--bg-darker), var(--primary));
+
+        .about-content {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-            position: relative;
-            overflow: hidden;
+            gap: 50px;
         }
-        .weapon-image::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,0,0,0.1), transparent);
-            transform: rotate(45deg);
-        }
-        .weapon-info {
-            padding: 30px;
-        }
-        .weapon-info h3 {
-            font-family: 'Orbitron', sans-serif;
-            margin-bottom: 15px;
-            color: var(--accent);
-            font-size: 1.8rem;
-            letter-spacing: 1px;
-        }
-        .weapon-info p {
-            color: var(--secondary);
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            line-height: 1.7;
-        }
-        .weapon-specs {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+
+        .about-text h3 {
+            font-size: 2rem;
+            color: #ff3366;
             margin-bottom: 25px;
+            text-shadow: 0 0 8px rgba(255, 0, 51, 0.4);
         }
-        .spec-item {
-            background: rgba(255,0,0,0.1);
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .spec-value {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--accent);
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-        .spec-label {
-            font-size: 0.9rem;
-            color: var(--secondary);
-            opacity: 0.8;
-        }
-        /* Секция брони */
-        #armor {
-            background: var(--bg-darker);
-        }
-        .armor-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-        }
-        .armor-card {
-            background: var(--bg-dark);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            border: 1px solid rgba(255,0,0,0.2);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .armor-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 25px 50px rgba(255,0,0,0.2);
-            border-color: var(--accent);
-        }
-        .armor-image {
-            height: 250px;
-            background: linear-gradient(45deg, var(--bg-darker), var(--primary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-        }
-        .armor-info {
-            padding: 30px;
-        }
-        .armor-info h3 {
-            font-family: 'Orbitron', sans-serif;
-            margin-bottom: 15px;
-            color: var(--accent);
-            font-size: 1.8rem;
-            letter-spacing: 1px;
-        }
-        .armor-info p {
-            color: var(--secondary);
+
+        .about-text p {
             margin-bottom: 20px;
             font-size: 1.1rem;
-            line-height: 1.7;
+            color: #ccc;
         }
-        /* Секция технологий */
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        .tech-item {
-            text-align: center;
-            padding: 40px 30px;
-            background: var(--bg-dark);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,0,0,0.2);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        .tech-item:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-            box-shadow: 0 20px 40px rgba(255,0,0,0.2);
-        }
-        .tech-icon {
-            font-size: 4rem;
-            margin-bottom: 25px;
-            color: var(--accent);
-            text-shadow: 0 0 20px var(--accent);
-        }
-        .tech-item h3 {
-            font-family: 'Orbitron', sans-serif;
-            margin-bottom: 15px;
-            color: var(--accent);
-            font-size: 1.5rem;
-        }
-        .tech-item p {
-            color: var(--secondary);
-            font-size: 1.1rem;
-        }
-        /* Новости */
-        #news {
-            background: var(--bg-darker);
-        }
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-        .news-card {
-            background: var(--bg-dark);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,0,0,0.2);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        .news-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(255,0,0,0.2);
-            border-color: var(--accent);
-        }
-        .news-date {
-            padding: 20px;
-            background: var(--accent);
-            color: var(--primary);
-            font-weight: 900;
-            font-size: 1.1rem;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-        .news-content {
-            padding: 30px;
-        }
-        .news-content h3 {
-            margin-bottom: 15px;
-            color: var(--accent);
-            font-size: 1.4rem;
-            line-height: 1.4;
-        }
-        .news-content p {
-            color: var(--secondary);
-            line-height: 1.7;
-        }
-        /* Клуб */
-        #club {
-            background: var(--bg-dark);
-        }
-        .club-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .club-content p {
-            font-size: 1.3rem;
-            margin-bottom: 30px;
-            line-height: 1.8;
-        }
-        .benefits {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 50px;
-        }
-        .benefit-item {
-            background: rgba(255,0,0,0.1);
-            padding: 25px;
-            border-radius: 10px;
-            border: 1px solid rgba(255,0,0,0.2);
-        }
-        .benefit-item h4 {
-            color: var(--accent);
-            margin-bottom: 15px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
-        }
-        /* Панель администратора */
-        #admin-panel {
-            display: none; /* Скрыто по умолчанию */
-            background: var(--bg-darker);
-            padding: 50px 5%;
-            min-height: 100vh;
-        }
-        .admin-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--accent);
-        }
-        .admin-header h2 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--accent);
-        }
-        .logout-btn {
-            background: transparent;
-            color: var(--accent);
-            border: 1px solid var(--accent);
-            padding: 8px 15px;
-            cursor: pointer;
-            font-family: 'Orbitron', sans-serif;
-            transition: all 0.3s ease;
-        }
-        .logout-btn:hover {
-            background: var(--accent);
-            color: var(--primary);
-        }
-        .admin-section {
-            background: var(--bg-dark);
-            border: 1px solid rgba(255,0,0,0.2);
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-        .admin-section h3 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--accent);
-            margin-bottom: 20px;
-        }
-        .admin-data {
-            color: var(--secondary);
-            line-height: 1.8;
-        }
-        .admin-data ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        .admin-data li {
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .admin-data li:last-child {
-            border-bottom: none;
-        }
-        /* Стили для чата сотрудников */
-        #employee-chat {
-            background: var(--bg-dark);
-            border: 1px solid rgba(255,0,0,0.2);
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-        #chat-messages {
-            height: 300px;
-            overflow-y: auto;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 15px;
-            margin-bottom: 15px;
-            background: var(--bg-darker);
-            border-radius: 5px;
-        }
-        .chat-message {
-            margin-bottom: 10px;
-            padding: 8px;
-            border-radius: 5px;
-        }
-        .chat-message.own {
-            background: rgba(255, 0, 0, 0.2);
-            text-align: right;
-        }
-        .chat-message.other {
-            background: rgba(255, 255, 255, 0.05);
-        }
-        .chat-message .sender {
-            font-weight: bold;
-            color: var(--accent);
-            font-size: 0.9rem;
-        }
-        .chat-message .text {
-            margin-top: 5px;
-        }
-        .chat-message .timestamp {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.6);
-            margin-top: 5px;
-        }
-        #chat-form {
-            display: flex;
-            gap: 10px;
-        }
-        #chat-input {
+
+        .about-image {
             flex: 1;
-            padding: 10px;
-            border: 1px solid var(--accent);
-            border-radius: 5px;
-            background: var(--bg-darker);
-            color: var(--secondary);
-            font-size: 16px;
+            height: 450px;
+            background: url('https://via.placeholder.com/600x450/1a1a1a/000000') no-repeat center center/cover;
+            border: 2px solid rgba(139, 0, 0, 0.5);
+            box-shadow: 0 0 25px rgba(139, 0, 0, 0.4);
+            transition: all 0.4s ease;
         }
-        #chat-input:focus {
-            outline: none;
-            box-shadow: 0 0 10px var(--accent);
+
+        .about-image:hover {
+            transform: scale(1.03);
+            border-color: #ff3366;
+            box-shadow: 0 0 35px rgba(255, 0, 51, 0.6);
         }
-        #send-chat-btn {
-            padding: 10px 20px;
-            background: var(--accent);
-            color: var(--primary);
-            border: none;
-            border-radius: 5px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
+
+        /* Услуги */
+        .services {
+            background: #000;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, #111 0%, #0a0a0a 100%);
+            padding: 35px;
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            border-left: 4px solid #8B0000;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff0033, transparent);
+            animation: slideIn 2s infinite;
+        }
+
+        @keyframes slideIn {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: #ff3366;
+            box-shadow: 0 0 30px rgba(255, 0, 51, 0.5);
+        }
+
+        .service-card h3 {
+            color: #ff3366;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 8px rgba(255, 0, 51, 0.4);
+        }
+
+        /* Контакты */
+        .contact {
+            background: linear-gradient(135deg, #0a0a0a 0%, #111 100%);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(139, 0, 0, 0.4);
+            color: #f0f0f0;
+            font-size: 1rem;
             transition: all 0.3s ease;
         }
-        #send-chat-btn:hover {
-            background: var(--accent-dark);
-            box-shadow: 0 0 20px var(--accent);
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff3366;
+            box-shadow: 0 0 15px rgba(255, 0, 51, 0.4);
         }
+
         /* Футер */
         footer {
-            background: var(--bg-darker);
-            padding: 70px 5% 30px;
-            border-top: 1px solid var(--accent);
-        }
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 50px;
-            margin-bottom: 50px;
-        }
-        .footer-column h3 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--accent);
-            margin-bottom: 25px;
-            font-size: 1.5rem;
-            letter-spacing: 1px;
-        }
-        .footer-column p {
-            color: var(--secondary);
-            margin-bottom: 15px;
-            line-height: 1.7;
-        }
-        .copyright {
-            padding-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: var(--secondary);
-            opacity: 0.7;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px 0;
             text-align: center;
-            font-size: 0.9rem;
+            border-top: 1px solid rgba(139, 0, 0, 0.5);
         }
-        /* Адаптация */
+
+        .footer-content p {
+            color: #aaa;
+            margin: 5px 0;
+            transition: color 0.3s ease;
+        }
+
+        .footer-content p:hover {
+            color: #ff3366;
+        }
+
+        /* Адаптивность */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-                letter-spacing: 4px;
-            }
-            .hero p {
-                font-size: 1.1rem;
-            }
-            nav ul {
-                gap: 10px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            section {
-                padding: 80px 5%;
-            }
-            .section-title {
-                font-size: 2.5rem;
-            }
-            .weapons-grid, .armor-grid, .news-grid {
-                grid-template-columns: 1fr;
-            }
-            header {
+            .header-content {
                 flex-direction: column;
-                gap: 15px;
-                padding: 15px;
             }
-            .modal-content {
-                width: 95%;
-                padding: 20px;
+
+            nav ul {
+                margin-top: 20px;
             }
-            #chat-messages {
-                height: 200px;
+
+            nav ul li {
+                margin: 0 10px;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.3rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
             }
         }
     </style>
+    <!-- Шрифт Orbitron -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <!-- Шапка -->
     <header>
-        <div class="logo-container">
-            <img src="https://media.discordapp.net/attachments/1386707904723292234/1413849928362627163/image.png?ex=68bd6dda&is=68bc1c5a&hm=82fedae7fed393f56139f11d14667b1f3b0ebc29bb5f1fd9f7cf4da904641a18&=&format=webp&quality=lossless" alt="AAS Logo" class="logo-img">
-            <a href="#" class="logo">AUTUMN<span>ARMS</span></a>
+        <div class="container header-content">
+            <div class="logo-container">
+                <img src="https://storage.imgbly.com/imgbly/GkfTwhjVa4.png" alt="Логотип Autumn Arms" class="logo-img">
+                <div class="logo">AUTUMN ARMS</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#about">О компании</a></li>
+                    <li><a href="#services">Услуги</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
         </div>
-        <nav>
-            <ul>
-                <li><a href="#weapons">Оружие</a></li>
-                <li><a href="#armor">Броня</a></li>
-                <li><a href="#tech">Технологии</a></li>
-                <li><a href="#news">Новости</a></li>
-                <li><a href="#club">Клуб</a></li>
-                <!-- Динамические ссылки аутентификации -->
-                <li><a href="#" id="auth-link" class="auth-link">Вход / Регистрация</a></li>
-                <li><a href="#" id="admin-link" class="auth-link" style="display:none;">Панель управления</a></li>
-                <!-- Элемент для отображения текущего пользователя -->
-                <li><span id="user-display" class="user-display" style="display: none;"></span></li>
-            </ul>
-        </nav>
     </header>
 
-    <!-- Модальное окно регистрации/входа -->
-    <div id="auth-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 id="auth-modal-title">Вход в Клуб</h2>
-            <div id="auth-message" class="message"></div>
-            <form id="auth-form">
-                <div class="form-group">
-                    <label for="login">Логин:</label>
-                    <input type="text" id="login" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Пароль:</label>
-                    <input type="password" id="password" required>
-                </div>
-                <button type="submit" class="btn" id="auth-submit-btn">Войти</button>
-            </form>
-            <div class="auth-switch">
-                <span id="auth-switch-text">Нет аккаунта? <a href="#" id="switch-auth-mode">Зарегистрироваться</a></span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальное окно входа для сотрудников -->
-    <div id="employee-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Вход для сотрудников</h2>
-            <div id="employee-message" class="message"></div>
-            <form id="employee-form">
-                <div class="form-group">
-                    <label for="employee-login">Логин сотрудника:</label>
-                    <input type="text" id="employee-login" required>
-                </div>
-                <div class="form-group">
-                    <label for="employee-password">Пароль:</label>
-                    <input type="password" id="employee-password" required>
-                </div>
-                <button type="submit" class="btn">Войти</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Главная секция -->
-    <section class="hero">
-        <h1>AUTUMN ARMS SECURITY</h1>
-        <p>Оружие нового времени. Безопасность нового уровня.</p>
-        <button class="cta-button">ИССЛЕДОВАТЬ ТЕХНОЛОГИИ</button>
+    <!-- Главный блок -->
+    <section class="hero" id="home">
+        <h1>AUTUMN ARMS</h1>
+        <p>Точность. Надежность. Безопасность.</p>
+        <a href="#contact" class="btn">Связаться с нами</a>
     </section>
 
-    <!-- Секция оружия -->
-    <section id="weapons">
-        <h2 class="section-title fade-in">БОЕВОЕ ОРУЖИЕ</h2>
-        <div class="weapons-grid">
-            <div class="weapon-card fade-in">
-                <div class="weapon-image"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/SigSauerM400_silhouette.png/1600px-SigSauerM400_silhouette.png" alt="pushka!!!"></div>
-                <div class="weapon-info">
-                    <h3>AAS-12 "AUTUMNFALL"</h3>
-                    <p>Автоматическая винтовка нового поколения с улучшенной точностью и надежностью. Предназначена для ведения огня в любых условиях.</p>
-                    <div class="weapon-specs">
-                        <div class="spec-item">
-                            <div class="spec-value">5.45мм</div>
-                            <div class="spec-label">Калибр</div>
-                        </div>
-                        <div class="spec-item">
-                            <div class="spec-value">30</div>
-                            <div class="spec-label">Емкость магазина</div>
-                        </div>
-                        <div class="spec-item">
-                            <div class="spec-value">900</div>
-                            <div class="spec-label">Скорострельность</div>
-                        </div>
-                        <div class="spec-item">
-                            <div class="spec-value">500м</div>
-                            <div class="spec-label">Дальность</div>
-                        </div>
+    <!-- О компании -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">О нас</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Кто мы</h3>
+                    <p>Autumn Arms — элитная частная военная компания, специализирующаяся на обеспечении безопасности, разведке, сопровождении и ликвидации угроз в сложных условиях.</p>
+                    <p>Мы объединяем опытных специалистов, передовые технологии и безупречную дисциплину, чтобы защищать интересы клиентов по всему миру.</p>
+                </div>
+                <div class="about-image"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Услуги -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Наши услуги</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Охрана и сопровождение</h3>
+                    <p>Обеспечение безопасности VIP-персон, объектов и грузоперевозок в зонах риска.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Разведка</h3>
+                    <p>Сбор и анализ информации в интересах клиентов в сложных геополитических регионах.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Обучение персонала</h3>
+                    <p>Подготовка специалистов по тактике, выживанию и специальным операциям.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Контакты</h2>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <input type="text" placeholder="Ваше имя" required>
                     </div>
-                    <button class="cta-button">ПОДРОБНЕЕ</button>
-                </div>
-            </div>
-            <div class="weapon-card fade-in">
-                <div class="weapon-image"><img src = "https://www.clipartmax.com/png/full/467-4676507_sako-trg-silhouette-silhouette-of-a-sniper-rifle.png" alt="VINTOVKA"> </div>
-                <div class="weapon-info">
-                    <h3>AAS-308 "IRONLEAF"</h3>
-                    <p>Снайперская винтовка для поражения целей на сверхдальних дистанциях. Обеспечивает высокую точность и останавливающую силу.</p>
-                    <div class="weapon-specs">
-                        <div class="spec-item">
-                            <div class="spec-value">7.62мм</div>
-                            <div class="spec-label">Калибр</div>
-                        </div>
-                        <div class="spec-item">
-                            <div class="spec-value">10</div>
-                            <div class="spec-label">Емкость магазина</div>
-                        </div>
-                        <div class="spec-item">
-                            <div class="spec-value">1200м</div>
-                            <div class="spec-label">Дальность</div>
-                        </div>
-                        <div class="spec-item">
-                            <div class="spec-value">MOA</div>
-                            <div class="spec-label">Точность</div>
-                        </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Ваш email" required>
                     </div>
-                    <button class="cta-button">ПОДРОБНЕЕ</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Секция брони -->
-    <section id="armor">
-        <h2 class="section-title fade-in">ЗАЩИТНОЕ СНАРЯЖЕНИЕ</h2>
-        <div class="armor-grid">
-            <div class="armor-card fade-in">
-                <div class="armor-image">🛡️</div>
-                <div class="armor-info">
-                    <h3>AAS-HELMET MK-VII "OCHRE"</h3>
-                    <p>Усиленный шлем с системой ночного виденья и шумоподавлением. Обеспечивает максимальную защиту головы и шеи.</p>
-                    <div class="weapon-specs">
-                        <div class="spec-item">
-                            <div class="spec-value">NIJ IIIA</div>
-                            <div class="spec-label">Класс защиты</div>
-                        </div>
-                        <div class="spec-item">
-                            <div class="spec-value">1.8кг</div>
-                            <div class="spec-label">Масса</div>
-                        </div>
-                        <div class="spec-item">
-                            <div class="spec-value">NVG</div>
-                            <div class="spec-label">Ночное видение</div>
-                        </div>
-                        <div class="spec-item">
-                            <div class="spec-value">Да</div>
-                            <div class="spec-label">Радиосвязь</div>
-                        </div>
+                    <div class="form-group">
+                        <textarea rows="5" placeholder="Сообщение" required></textarea>
                     </div>
-                    <button class="cta-button">ПОДРОБНЕЕ</button>
-                </div>
-            </div>
-            <div class="armor-card fade-in">
-                <div class="armor-image">👕</div>
-                <div class="armor-info">
-                    <h3>AAS-TACSUIT "CAMOTECH"</h3>
-                    <p>Тактический костюм нового поколения с адаптивной камуфляжной системой. Обеспечивает защиту и скрытность в любых условиях.</p>
-                    <div class="weapon-specs">
-                        <div class="spec-item">
-                            <div class="spec-value">NIJ III</div>
-                            <div class="spec-label">Класс защиты</div>
-                        </div>
-                        <div class="spec-item">
-                            <div class="spec-value">Температура</div>
-                            <div class="spec-label">Климат контроль</div>
-                        </div>
-                        <div class="spec-item">
-                            <div class="spec-value">Да</div>
-                            <div class="spec-label">Камуфляж</div>
-                        </div>
-                        <div class="spec-item">
-                            <div class="spec-value">4.5кг</div>
-                            <div class="spec-label">Масса</div>
-                        </div>
-                    </div>
-                    <button class="cta-button">ПОДРОБНЕЕ</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Секция технологий -->
-    <section id="tech">
-        <h2 class="section-title fade-in">БОЕВЫЕ ТЕХНОЛОГИИ</h2>
-        <div class="tech-grid">
-            <div class="tech-item fade-in">
-                <div class="tech-icon">🤖</div>
-                <h3>БОЕВЫЕ ДРОНЫ</h3>
-                <p>AAS-TALON X-45 - дроны разведки и подавления с искусственным интеллектом</p>
-            </div>
-            <div class="tech-item fade-in">
-                <div class="tech-icon">🧠</div>
-                <h3>ИИ В БОЕВЫХ СИСТЕМАХ</h3>
-                <p>AAS-Aegis AI - искусственный интеллект для анализа угроз и принятия решений</p>
-            </div>
-            <div class="tech-item fade-in">
-                <div class="tech-icon">🛰️</div>
-                <h3>СПУТНИКОВЫЕ СИСТЕМЫ</h3>
-                <p>Глобальный мониторинг и наведение с орбиты Земли</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Секция новостей -->
-    <section id="news">
-        <h2 class="section-title fade-in">НОВОСТИ И СОБЫТИЯ</h2>
-        <div class="news-grid">
-            <div class="news-card fade-in">
-                <div class="news-date">21 АВГУСТА</div>
-                <div class="news-content">
-                    <h3>AAS ЗАВЕРШИЛА ПОСТАВКУ СИСТЕМ ОБОРОНЫ</h3>
-                    <p>Компания успешно завершила поставку современных систем обороны в зону конфликта. Все поставки выполнены в установленные сроки.</p>
-                </div>
-            </div>
-            <div class="news-card fade-in">
-                <div class="news-date">21 АВГУСТА</div>
-                <div class="news-content">
-                    <h3>AAS-TALON X-45 ПРОШЁЛ ИСПЫТАНИЯ</h3>
-                    <p>Новый боевой дрон успешно прошёл комплексные испытания спецназом. Продемонстрирована высокая эффективность в реальных условиях.</p>
-                </div>
-            </div>
-            <div class="news-card fade-in">
-                <div class="news-date">20 АВГУСТА</div>
-                <div class="news-content">
-                    <h3>НОВЫЙ КОНТРАКТ НА 2 МЛРД. $</h3>
-                    <p>Подписан крупный государственный контракт на поставку боевых комплексов. Это крупнейший контракт в истории компании.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Секция клуба -->
-    <section id="club">
-        <h2 class="section-title fade-in">КЛУБ AAS</h2>
-        <div class="club-content fade-in">
-            <p>Мы объединяем владельцев продукции AAS и всех, кто хочет стать частью элитного сообщества. Больше десяти уникальных привилегий для участников клуба.</p>
-            <button class="cta-button" id="club-join-btn">СТАТЬ УЧАСТНИКОМ КЛУБА</button>
-            <div class="benefits">
-                <div class="benefit-item">
-                    <h4>ЭКСКЛЮЗИВНОЕ ОРУЖИЕ</h4>
-                    <p>Доступ к ограниченным сериям и прототипам</p>
-                </div>
-                <div class="benefit-item">
-                    <h4>ТЕСТИРОВАНИЕ</h4>
-                    <p>Участие в испытаниях новых технологий</p>
-                </div>
-                <div class="benefit-item">
-                    <h4>МЕРОПРИЯТИЯ</h4>
-                    <p>Приглашения на закрытые мероприятия</p>
-                </div>
-                <div class="benefit-item">
-                    <h4>СПЕЦПРОЕКТЫ</h4>
-                    <p>Участие в специальных операциях</p>
-                </div>
+                    <button type="submit" class="btn">Отправить</button>
+                </form>
             </div>
         </div>
     </section>
 
     <!-- Футер -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>AUTUMN ARMS SECURITY</h3>
-                <p>Флагман отечественной стрелковой отрасли, на его долю приходится порядка 95% производства стрелкового оружия.</p>
-            </div>
-            <div class="footer-column">
-                <h3>КОНТАКТЫ</h3>
-                <p>📞 +7 (XXX) XXX-XX-XX</p>
-                <p>📧 contact@autumnarms.com</p>
-                <p>📍 Москва, ул. Оборонная, 1</p>
-            </div>
-            <div class="footer-column">
-                <h3>ПРОДУКЦИЯ</h3>
-                <p>• Штурмовые винтовки</p>
-                <p>• Снайперские комплексы</p>
-                <p>• Пистолеты и ПДВ</p>
-                <p>• Бронежилеты и шлемы</p>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2023 AUTUMN ARMS SECURITY. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</p>
+        <div class="container footer-content">
+            <p>&copy; 2025 Autumn Arms. Все права защищены.</p>
+            <p>Точность. Надежность. Безопасность.</p>
         </div>
     </footer>
 
-    <!-- Панель администратора (для сотрудников высшего класса) -->
-    <!-- ВАЖНО: Эта секция теперь находится ПОСЛЕ основного контента -->
-    <section id="admin-panel" style="display: none;">
-        <div class="admin-content">
-            <div class="admin-header">
-                <h2>ПАНЕЛЬ УПРАВЛЕНИЯ AAS</h2>
-                <button class="logout-btn" id="admin-logout-btn">Выйти</button>
-            </div>
-            <div class="admin-section">
-                <h3>КОНФИДЕНЦИАЛЬНЫЕ ДАННЫЕ</h3>
-                <div class="admin-data" id="confidential-data">
-                    <!-- Данные будут загружены сюда -->
-                    <p>Загрузка данных...</p>
-                </div>
-            </div>
-            <div class="admin-section">
-                <h3>СТАТИСТИКА ПРОИЗВОДСТВА</h3>
-                <div class="admin-data" id="production-stats">
-                    <!-- Данные будут загружены сюда -->
-                    <p>Загрузка статистики...</p>
-                </div>
-            </div>
-            <div class="admin-section">
-                <h3>ПОСЛЕДНИЕ ОПЕРАЦИИ</h3>
-                <div class="admin-data" id="recent-ops">
-                    <!-- Данные будут загружены сюда -->
-                    <ul>
-                        <li>Операция "Осенний Лист" - Статус: Выполнена</li>
-                        <li>Операция "Красный Рассвет" - Статус: В процессе</li>
-                        <li>Операция "Железный Купол" - Статус: Планируется</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Секция чата для сотрудников -->
-            <div id="employee-chat">
-                <h3>ЧАТ СОТРУДНИКОВ</h3>
-                <div id="chat-messages">
-                    <!-- Сообщения чата будут появляться здесь -->
-                </div>
-                <form id="chat-form">
-                    <input type="text" id="chat-input" placeholder="Введите сообщение..." required>
-                    <button type="submit" id="send-chat-btn">Отправить</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <script>
-        // --- НАСТРОЙКИ SUPABASE ---
-        const SUPABASE_URL = 'https://amzkukchwvalhhyrzpqd.supabase.co'; // Убран пробел в конце
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtemt1a2Nod3ZhbGhoeXJ6cHFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcxNzg2MDQsImV4cCI6MjA3Mjc1NDYwNH0.PYoITwEkJeSeTABIVR6vrNUvZmaZHppQViabH5hC49w';
-        // --- КОНЕЦ НАСТРОЕК ---
-        // Инициализация Supabase
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        // Инициализация GSAP и ScrollTrigger
-        gsap.registerPlugin(ScrollTrigger);
-        // DOM Elements
-        const authModal = document.getElementById('auth-modal');
-        const employeeModal = document.getElementById('employee-modal');
-        const closeModalBtns = document.querySelectorAll('.close');
-        const authForm = document.getElementById('auth-form');
-        const employeeForm = document.getElementById('employee-form');
-        const switchAuthMode = document.getElementById('switch-auth-mode');
-        const authModalTitle = document.getElementById('auth-modal-title');
-        const authSubmitBtn = document.getElementById('auth-submit-btn');
-        const authSwitchText = document.getElementById('auth-switch-text');
-        const clubJoinBtn = document.getElementById('club-join-btn');
-        const authLink = document.getElementById('auth-link');
-        const adminLink = document.getElementById('admin-link');
-        const adminPanel = document.getElementById('admin-panel');
-        const adminLogoutBtn = document.getElementById('admin-logout-btn');
-        // Новые элементы для чата и отображения пользователя
-        const chatForm = document.getElementById('chat-form');
-        const chatInput = document.getElementById('chat-input');
-        const chatMessages = document.getElementById('chat-messages');
-        const userDisplay = document.getElementById('user-display'); // Добавлено
-        let isLoginMode = true; // Переключатель между входом и регистрацией
-        let currentUser = null; // Глобальная переменная для текущего пользователя
-        let currentEmployee = null; // Глобальная переменная для текущего сотрудника
-        let chatChannel = null; // Канал Realtime для чата
-        // --- АНИМАЦИИ ---
-        // Анимация заголовка при загрузке
-        gsap.from('.hero h1', {
-            duration: 1.8,
-            y: 100,
-            opacity: 0,
-            ease: "power4.out",
-            delay: 0.2
-        });
-        gsap.from('.hero p', {
-            duration: 1.8,
-            y: 50,
-            opacity: 0,
-            delay: 0.5,
-            ease: "power4.out"
-        });
-        gsap.from('.cta-button', {
-            duration: 1.8,
-            y: 50,
-            opacity: 0,
-            delay: 0.8,
-            ease: "power4.out"
-        });
-        // Анимации при скролле
-        gsap.utils.toArray('.fade-in').forEach((element, i) => {
-            gsap.to(element, {
-                opacity: 1,
-                y: 0,
-                duration: 1.2,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: element,
-                    start: "top 85%",
-                    toggleActions: "play none none reverse"
-                }
-            });
-        });
-        // Эффект наведения на кнопки
-        document.querySelectorAll('.cta-button, .btn').forEach(button => {
-            button.addEventListener('mouseenter', () => {
-                gsap.to(button, {
-                    duration: 0.3,
-                    scale: 1.05,
-                    boxShadow: "0 0 30px var(--accent)",
-                    ease: "power2.out"
-                });
-            });
-            button.addEventListener('mouseleave', () => {
-                gsap.to(button, {
-                    duration: 0.3,
-                    scale: 1,
-                    boxShadow: "0 0 0 rgba(255,0,0,0)",
-                    ease: "power2.out"
-                });
-            });
-        });
-        // Эффект наведения на карточки
-        const cards = document.querySelectorAll('.weapon-card, .armor-card, .tech-item, .news-card');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                gsap.to(card, {
-                    duration: 0.4,
-                    y: -10,
-                    boxShadow: "0 25px 50px rgba(255,0,0,0.2)",
-                    ease: "power2.out"
-                });
-            });
-            card.addEventListener('mouseleave', () => {
-                gsap.to(card, {
-                    duration: 0.4,
-                    y: 0,
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
-                    ease: "power2.out"
-                });
-            });
-        });
-        // Пульсация логотипа
-        setInterval(() => {
-            gsap.to('.logo span', {
-                duration: 0.8,
-                opacity: 0.7,
-                textShadow: "0 0 20px var(--accent)",
-                repeat: 1,
-                yoyo: true,
-                ease: "power1.inOut"
-            });
-        }, 4000);
-        // Добавляем немного интерактива
-        document.querySelector('.hero').addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth - e.pageX) / 100;
-            const y = (window.innerHeight - e.pageY) / 100;
-            document.querySelector('.hero h1').style.transform = `translateX(${x}px) translateY(${y}px)`;
-        });
-        // Анимация при клике на кнопку CTA
-        document.querySelectorAll('.cta-button').forEach(button => {
-            button.addEventListener('click', function() {
-                gsap.to(this, {
-                    duration: 0.1,
-                    scale: 0.95,
-                    onComplete: () => {
-                        gsap.to(this, {
-                            duration: 0.1,
-                            scale: 1
-                        });
-                    }
-                });
-            });
-        });
-        // --- КОНЕЦ АНИМАЦИЙ ---
-        // --- ФУНКЦИИ АУТЕНТИФИКАЦИИ ---
-        // Проверка состояния аутентификации при загрузке страницы
-        async function checkAuthState() {
-            // ИСПРАВЛЕНО: правильная деструктуризация
-            const { data: { session }, error } = await supabase.auth.getSession();
-            if (error) {
-                console.error("Ошибка получения сессии:", error);
-                return;
-            }
-            if (session) {
-                // Проверяем, сотрудник это или обычный пользователь
-                // ИСПРАВЛЕНО: правильная деструктуризация
-                const { data: employeeData, error: empError } = await supabase
-                    .from('employees')
-                    .select('*')
-                    .eq('id', session.user.id)
-                    .single();
-                if (!empError && employeeData) {
-                    // Это сотрудник
-                    currentEmployee = employeeData;
-                    updateAuthUI(null, currentEmployee);
-                } else {
-                    // Это обычный пользователь
-                    currentUser = session.user;
-                    updateAuthUI(currentUser, null);
-                }
-            } else {
-                updateAuthUI(null, null);
-            }
-        }
-        // Обновление UI в зависимости от состояния аутентификации
-        function updateAuthUI(user, employee) {
-            if (user) {
-                currentUser = user;
-                currentEmployee = null;
-                authLink.textContent = 'Выйти';
-                authLink.href = '#';
-                authLink.onclick = handleLogout;
-                adminLink.style.display = 'block'; // Показываем ссылку на панель
-                // Отображаем логин пользователя в шапке
-                // ИСПРАВЛЕНО: безопасный доступ к user_metadata
-                const userLogin = user.user_metadata?.login || 'User';
-                userDisplay.textContent = `Аккаунт: ${userLogin}`;
-                userDisplay.style.display = 'inline-block';
-                // Показываем приветствие для обычного пользователя
-                showWelcomeMessage(`Добро пожаловать в AAS, ${userLogin}!`);
-            } else if (employee) {
-                currentUser = null;
-                currentEmployee = employee;
-                authLink.textContent = 'Выйти';
-                authLink.href = '#';
-                authLink.onclick = handleLogout;
-                adminLink.style.display = 'block';
-                // Отображаем логин сотрудника в шапке
-                userDisplay.textContent = `Сотрудник: ${employee.login}`;
-                userDisplay.style.display = 'inline-block';
-                // Показываем приветствие для сотрудника
-                showWelcomeMessage(`ПРОТОКОЛ ВХОДА ВЫПОЛНЕН. Добро пожаловать, ${employee.name}. Уровень допуска: ${employee.clearance_level}.`);
-            } else {
-                // Никто не вошел
-                authLink.textContent = 'Вход / Регистрация';
-                authLink.href = '#';
-                authLink.onclick = () => { authModal.style.display = 'flex'; };
-                adminLink.style.display = 'none';
-                userDisplay.style.display = 'none';
-                currentUser = null;
-                currentEmployee = null;
-            }
-        }
-        // Функция для отображения приветственного сообщения
-        function showWelcomeMessage(message) {
-            alert(message); // Используем alert для простоты. Можно заменить на модальное окно или баннер.
-        }
-        // Переключение режима аутентификации (вход/регистрация)
-        function toggleAuthMode() {
-            isLoginMode = !isLoginMode;
-            if (isLoginMode) {
-                authModalTitle.textContent = 'Вход в Клуб';
-                authSubmitBtn.textContent = 'Войти';
-                authSwitchText.innerHTML = 'Нет аккаунта? <a href="#" id="switch-auth-mode">Зарегистрироваться</a>';
-            } else {
-                authModalTitle.textContent = 'Регистрация в Клубе';
-                authSubmitBtn.textContent = 'Зарегистрироваться';
-                authSwitchText.innerHTML = 'Уже есть аккаунт? <a href="#" id="switch-auth-mode">Войти</a>';
-            }
-            // Переназначаем обработчик события для новой ссылки
-            document.getElementById('switch-auth-mode').addEventListener('click', (e) => {
-                e.preventDefault();
-                toggleAuthMode();
-            });
-        }
-        // Обработка отправки формы аутентификации
-        authForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const login = document.getElementById('login').value.trim();
-            const password = document.getElementById('password').value;
-            const messageEl = document.getElementById('auth-message');
-            messageEl.className = 'message'; // Сброс класса
-            messageEl.textContent = '';
-            messageEl.style.display = 'none';
-            if (!login || !password) {
-                messageEl.textContent = 'Логин и пароль обязательны.';
-                messageEl.className = 'message error';
-                messageEl.style.display = 'block';
-                return;
-            }
-            try {
-                let data, error;
-                if (isLoginMode) {
-                    // Вход
-                    // ИСПРАВЛЕНО: правильная деструктуризация результата
-                    ({ data, error } = await supabase.auth.signInWithPassword({
-                        email: `${login}@autumnarms.local`, // Фиктивный email
-                        password: password
-                    }));
-                    if (error) throw error;
-                    messageEl.textContent = 'Успешный вход!';
-                    messageEl.className = 'message success';
-                    messageEl.style.display = 'block';
-                    // Закрываем модальное окно и обновляем UI
-                    setTimeout(() => {
-                        authModal.style.display = 'none';
-                        checkAuthState(); // Перепроверяем состояние
-                    }, 1500);
-                } else {
-                    // Регистрация
-                    // ИСПРАВЛЕНО: правильная деструктуризация результата и options
-                    ({ data, error } = await supabase.auth.signUp({
-                        email: `${login}@autumnarms.local`, // Фиктивный email
-                        password: password,
-                        options: {
-                            data: { // ИСПРАВЛЕНО: добавлен ключ data
-                                login: login // Сохраняем логин в метаданных пользователя
-                            }
-                        }
-                    }));
-                    if (error) throw error;
-                    // Создаем запись в таблице profiles
-                    if (data.user) {
-                        const { error: profileError } = await supabase
-                            .from('profiles')
-                            .upsert({
-                                id: data.user.id,
-                                login: login,
-                                joined_at: new Date().toISOString(),
-                                updated_at: new Date().toISOString()
-                            }, { onConflict: 'id' });
-                        if (profileError) {
-                            console.error('Ошибка при создании профиля:', profileError);
-                        }
-                    }
-                    messageEl.textContent = 'Регистрация успешна!';
-                    messageEl.className = 'message success';
-                    messageEl.style.display = 'block';
-                    // Переключаемся на режим входа
-                    isLoginMode = true;
-                    toggleAuthMode();
-                    // Закрываем модальное окно через 2 секунды
-                    setTimeout(() => {
-                        authModal.style.display = 'none';
-                    }, 2000);
-                }
-            } catch (error) { // ИСПРАВЛЕНО: добавлен блок catch
-                console.error("Ошибка аутентификации:", error);
-                messageEl.textContent = error.message || 'Произошла ошибка.';
-                messageEl.className = 'message error';
-                messageEl.style.display = 'block';
-            }
-        });
-        // Обработка выхода
-        async function handleLogout(e) {
-            e.preventDefault();
-            // Выход из Supabase Auth
-            const { error: authError } = await supabase.auth.signOut();
-            // Отписка от канала чата, если он существует
-            if (chatChannel) {
-                await chatChannel.unsubscribe();
-                chatChannel = null;
-            }
-            if (authError) {
-                console.error("Ошибка выхода:", authError);
-            } else {
-                // Сбрасываем состояние
-                currentUser = null;
-                currentEmployee = null;
-                updateAuthUI(null, null);
-                adminPanel.style.display = 'none'; // Скрываем панель администратора при выходе
-            }
-        }
-        // --- ФУНКЦИИ ДЛЯ СОТРУДНИКОВ ---
-        // Обработка отправки формы входа для сотрудников
-        employeeForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const employeeLogin = document.getElementById('employee-login').value.trim();
-            const employeePassword = document.getElementById('employee-password').value;
-            const messageEl = document.getElementById('employee-message');
-            messageEl.className = 'message';
-            messageEl.textContent = '';
-            messageEl.style.display = 'none';
-            if (!employeeLogin || !employeePassword) {
-                messageEl.textContent = 'Логин и пароль обязательны.';
-                messageEl.className = 'message error';
-                messageEl.style.display = 'block';
-                return;
-            }
-            try { // ИСПРАВЛЕНО: добавлен блок try
-                // Пытаемся войти как обычный пользователь (Supabase Auth)
-                const { data, error } = await supabase.auth.signInWithPassword({
-                    email: `${employeeLogin}@autumnarms.local`, // Фиктивный email
-                    password: employeePassword
-                });
-                if (error) throw error;
-                // Проверяем, является ли пользователь сотрудником с уровнем TOP_SECRET
-                // ИСПРАВЛЕНО: правильная деструктуризация
-                const { data: empData, error: empError } = await supabase
-                    .from('employees')
-                    .select('*')
-                    .eq('id', data.user.id)
-                    .eq('clearance_level', 'TOP_SECRET')
-                    .single();
-                if (empError) {
-                    throw new Error('Недостаточный уровень допуска или неверные учетные данные.');
-                }
-                messageEl.textContent = 'Успешный вход!';
-                messageEl.className = 'message success';
-                messageEl.style.display = 'block';
-                // Сохраняем данные сотрудника
-                currentEmployee = empData;
-                // Закрываем модальное окно и показываем панель администратора
-                setTimeout(() => {
-                    employeeModal.style.display = 'none';
-                    adminPanel.style.display = 'block';
-                    adminPanel.scrollIntoView({ behavior: 'smooth' });
-                    loadAdminData(currentEmployee);
-                    initializeChat(currentEmployee); // Инициализируем чат
-                    updateAuthUI(null, currentEmployee); // Обновляем UI
-                }, 1500);
-            } catch (error) { // ИСПРАВЛЕНО: добавлен блок catch
-                console.error("Ошибка входа сотрудника:", error);
-                messageEl.textContent = error.message || 'Произошла ошибка.';
-                messageEl.className = 'message error';
-                messageEl.style.display = 'block';
-            }
-        });
-        // Загрузка данных для панели администратора (заглушка)
-        function loadAdminData(employeeData) {
-            document.getElementById('confidential-data').innerHTML = `
-                <ul>
-                    <li><strong>Здравствуйте, ${employeeData.name}</strong></li>
-                    <li><strong>Проект "Омега":</strong> Статус - Классифицировано</li>
-                    <li><strong>Бюджет на Q4:</strong> 500,000,000 $</li>
-                    <li><strong>Код активации:</strong> AAS-OMEGA-RED-777</li>
-                </ul>
-            `;
-            document.getElementById('production-stats').innerHTML = `
-                <ul>
-                    <li>AAS-12: 15,000 единиц (в этом месяце)</li>
-                    <li>AAS-308: 2,500 единиц (в этом месяце)</li>
-                    <li>AAS-Helmet MK-VII: 8,000 единиц (в этом месяце)</li>
-                </ul>
-            `;
-        }
-        // --- ФУНКЦИИ ЧАТА ---
-        // Инициализация чата
-        async function initializeChat(employeeData) {
-            // Очищаем предыдущие сообщения
-            chatMessages.innerHTML = '';
-            // Создаем канал Realtime
-            chatChannel = supabase.channel('employee_chat');
-            // Подписываемся на новые сообщения
-            chatChannel.on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'employee_chat' }, async (payload) => {
-                const newMessage = payload.new;
-                await addMessageToUI(newMessage, false); // false = не наше сообщение
-            }).subscribe();
-            // Загружаем историю сообщений
-            // ИСПРАВЛЕНО: правильная деструктуризация
-            const { data: messages, error } = await supabase
-                .from('employee_chat')
-                .select('*')
-                .order('created_at', { ascending: true });
-            if (error) {
-                console.error('Ошибка загрузки истории чата:', error);
-                return;
-            }
-            for (const msg of messages) {
-                await addMessageToUI(msg, msg.sender_id === employeeData.id);
-            }
-            // Обработчик отправки сообщения
-            chatForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const text = chatInput.value.trim();
-                if (!text) return;
-                // Отправляем сообщение в базу данных
-                const { error: insertError } = await supabase
-                    .from('employee_chat')
-                    .insert({
-                        sender_id: employeeData.id,
-                        sender_name: employeeData.name,
-                        message_text: text,
-                        created_at: new Date().toISOString()
-                    });
-                if (insertError) {
-                    console.error('Ошибка отправки сообщения:', insertError);
-                    return;
-                }
-                // Очищаем поле ввода
-                chatInput.value = '';
-            });
-        }
-        // Функция для добавления сообщения в UI
-        async function addMessageToUI(message, isOwnMessage) {
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('chat-message');
-            if (isOwnMessage) {
-                messageDiv.classList.add('own');
-            } else {
-                messageDiv.classList.add('other');
-            }
-            const timestamp = new Date(message.created_at).toLocaleString('ru-RU', {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            messageDiv.innerHTML = `
-                <div class="sender">${message.sender_name}</div>
-                <div class="text">${message.message_text}</div>
-                <div class="timestamp">${timestamp}</div>
-            `;
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight; // Прокручиваем вниз
-        }
-        // --- ОБРАБОТЧИКИ СОБЫТИЙ ---
-        // Открытие модального окна аутентификации
-        clubJoinBtn.addEventListener('click', () => {
-            if (currentUser || currentEmployee) {
-                alert('Вы уже являетесь участником клуба!');
-            } else {
-                authModal.style.display = 'flex';
-            }
-        });
-        // Переключение режима аутентификации
-        switchAuthMode.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleAuthMode();
-        });
-        // Закрытие модальных окон
-        closeModalBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                authModal.style.display = 'none';
-                employeeModal.style.display = 'none';
-            });
-        });
-        window.addEventListener('click', (event) => {
-            if (event.target === authModal) {
-                authModal.style.display = 'none';
-            }
-            if (event.target === employeeModal) {
-                employeeModal.style.display = 'none';
-            }
-        });
-        // Открытие панели администратора
-        adminLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (currentEmployee && currentEmployee.clearance_level === 'TOP_SECRET') {
-                adminPanel.style.display = 'block';
-                adminPanel.scrollIntoView({ behavior: 'smooth' });
-            } else {
-                employeeModal.style.display = 'flex';
-            }
-        });
-        // Выход из панели администратора
-        adminLogoutBtn.addEventListener('click', () => {
-            handleLogout(new Event('click')); // Вызываем общую функцию выхода
-        });
-        // --- ИНИЦИАЛИЗАЦИЯ ---
-        document.addEventListener('DOMContentLoaded', () => {
-            checkAuthState();
-        });
-    </script>
 </body>
 </html>
